@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://buahagwpd0niq"]
+
+[ext_resource type="Script" uid="uid://47878a6y6lk0" path="res://items/scripts/item_data.gd" id="1_48s7y"]
+[ext_resource type="Script" uid="uid://bdk3i4hgmsw6b" path="res://items/item_effects/item_effect.gd" id="1_j3wgd"]
+
+[resource]
+script = ExtResource("1_48s7y")
+name = "Metal Scraps"
+description = "Scavenged fragments of a mechanical creation. Could be used for something."
+quality = "Poor"
+metadata/_custom_type_script = "uid://47878a6y6lk0"

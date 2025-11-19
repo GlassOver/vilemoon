@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr8u34q4dsu0e"]
+
+[ext_resource type="Script" uid="uid://drqtr77ttunbx" path="res://GUI/pause_menu/inventory/scripts/inventory_slot_ui.gd" id="1_ie3mw"]
+
+[node name="InventorySlot" type="Button"]
+custom_minimum_size = Vector2(40, 40)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ie3mw")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 4.0
+offset_right = 37.0
+offset_bottom = 37.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 12.0
+offset_bottom = 12.0
+theme_override_font_sizes/font_size = 8
+text = "99"

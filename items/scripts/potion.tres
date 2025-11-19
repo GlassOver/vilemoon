@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://c67k1yrd0vwfw"]
+
+[ext_resource type="Script" uid="uid://bdk3i4hgmsw6b" path="res://items/item_effects/item_effect.gd" id="1_8syth"]
+[ext_resource type="Script" uid="uid://47878a6y6lk0" path="res://items/scripts/item_data.gd" id="1_lvpfl"]
+[ext_resource type="Script" uid="uid://cfg1xpmiim3tx" path="res://items/item_effects/item_effect_heal.gd" id="2_45wta"]
+
+[sub_resource type="Resource" id="Resource_fmb5c"]
+script = ExtResource("2_45wta")
+heal_amount = 5
+metadata/_custom_type_script = "uid://cfg1xpmiim3tx"
+
+[resource]
+script = ExtResource("1_lvpfl")
+name = "Minor Potion of Healing"
+description = "A deep red elixir. Restores a minor amount of health."
+quality = "Poor"
+effects = Array[ExtResource("1_8syth")]([SubResource("Resource_fmb5c")])
+metadata/_custom_type_script = "uid://47878a6y6lk0"

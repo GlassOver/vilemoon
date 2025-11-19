@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://be1lceexol4h5"]
+
+[ext_resource type="Script" uid="uid://c7fq0o5582a6e" path="res://levels/Props/Spike/spike.gd" id="1_lqeuc"]
+[ext_resource type="Texture2D" uid="uid://bvkedgqbds2c0" path="res://levels/Props/Sprites/PlaceHolder.png" id="2_arei5"]
+[ext_resource type="PackedScene" uid="uid://bf7kpok0ljfm7" path="res://player/healthbar/hitbox/hit_box.tscn" id="3_ntsih"]
+[ext_resource type="PackedScene" uid="uid://bfdpeocn58hen" path="res://player/healthbar/hurtbox/hurt_box.tscn" id="4_arei5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r31e5"]
+size = Vector2(66.33206, 20)
+
+[node name="Spike" type="Node2D"]
+script = ExtResource("1_lqeuc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_arei5")
+
+[node name="HitBox" parent="." instance=ExtResource("3_ntsih")]
+scale = Vector2(0.99499416, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-1.1980902e-07, 0)
+scale = Vector2(0.99999976, 3.1808453)
+shape = SubResource("RectangleShape2D_r31e5")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1.1920927e-07, 0)
+scale = Vector2(0.9949939, 3.1808453)
+shape = SubResource("RectangleShape2D_r31e5")
+
+[node name="HurtBox" parent="." instance=ExtResource("4_arei5")]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(-1.1920927e-07, 0)
+scale = Vector2(0.9949939, 3.1808453)
+shape = SubResource("RectangleShape2D_r31e5")

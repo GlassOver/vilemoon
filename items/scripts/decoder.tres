@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://bhox1lyao8d23"]
+
+[ext_resource type="Script" uid="uid://47878a6y6lk0" path="res://items/scripts/item_data.gd" id="1_ahkcj"]
+[ext_resource type="Script" uid="uid://bdk3i4hgmsw6b" path="res://items/item_effects/item_effect.gd" id="1_iejr8"]
+
+[resource]
+script = ExtResource("1_ahkcj")
+name = "Busted Decoder"
+description = "A device that allows machines access to this world's magic. Maybe I can use it too."
+quality = "Quality"
+metadata/_custom_type_script = "uid://47878a6y6lk0"
