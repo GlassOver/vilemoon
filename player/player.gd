@@ -16,8 +16,11 @@ signal player_damaged(hurt_box: HurtBox)
 @export var jump_move_speed := 400.0
 @export var dodgeTimer := 0.0
 @export var dodgeTime := 1.2
+@export var attackTimer := 0.0
+@export var attackCooldown := 0.3
 @export var slideTimer := 0.0
 @export var slideTime := 0.3
+@export var stopMoving := 0
 
 @export var facing_right := true
 @export var isAttacking := false
@@ -41,6 +44,7 @@ func _ready() -> void:
 	initializeStates()
 	dodgeTimer = dodgeTime
 	slideTimer = slideTime
+	attackTimer = attackCooldown
 	hit_box.Damaged.connect(_take_damage)
 	update_hp(9999)
 	#healthbar.init_health(max_value)
@@ -56,6 +60,7 @@ func _process(delta: float) -> void:
 	changeState(currentState.process(delta))
 	dodgeTimer -= delta
 	slideTimer -= delta
+	attackTimer-= delta
 	
 
 func _physics_process(delta: float) -> void:
@@ -120,7 +125,6 @@ func _take_damage(hurt_box : HurtBox) -> void:
 func update_hp(delta: int) -> void:
 	health = clampi(health + delta, 0, max_value)
 	print("Player HP after update: ", health)
-	
 	
 	
 

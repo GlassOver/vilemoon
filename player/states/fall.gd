@@ -34,7 +34,7 @@ func exit() -> void:
 
 # What happens when an input is pressed?
 func handleInput( _event : InputEvent ) -> PlayerState:
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") and player.attackTimer <= 0:
 		return attack
 
 

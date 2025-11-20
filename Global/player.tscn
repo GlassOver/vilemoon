@@ -39,8 +39,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hg6s5"]
-size = Vector2(142, 64)
+[sub_resource type="CircleShape2D" id="CircleShape2D_bgi0l"]
+radius = 79.00633
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_boad6"]
 size = Vector2(20, 33.249416)
@@ -69,8 +69,8 @@ collision_mask = 256
 
 [node name="Sword_Collider" type="CollisionShape2D" parent="HurtBox"]
 unique_name_in_owner = true
-position = Vector2(94, -45)
-shape = SubResource("RectangleShape2D_hg6s5")
+position = Vector2(95, -47)
+shape = SubResource("CircleShape2D_bgi0l")
 disabled = true
 debug_color = Color(0.7749407, 0.14539094, 0.21738556, 0.41960785)
 
@@ -121,6 +121,7 @@ script = ExtResource("9_qwug2")
 [node name="Attack" type="Node" parent="States"]
 unique_name_in_owner = true
 script = ExtResource("10_fou7p")
+decelerate_speed = 11.0
 
 [node name="Stun" type="Node" parent="States"]
 unique_name_in_owner = true
