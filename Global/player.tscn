@@ -71,6 +71,7 @@ collision_mask = 256
 unique_name_in_owner = true
 position = Vector2(94, -45)
 shape = SubResource("RectangleShape2D_hg6s5")
+disabled = true
 debug_color = Color(0.7749407, 0.14539094, 0.21738556, 0.41960785)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
