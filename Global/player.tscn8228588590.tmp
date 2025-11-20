@@ -1,9 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://bf5tqkwm0y2l3"]
+[gd_scene load_steps=19 format=3 uid="uid://bf5tqkwm0y2l3"]
 
 [ext_resource type="Script" uid="uid://bee6ytpl3yau7" path="res://player/player.gd" id="1_vvscm"]
 [ext_resource type="Texture2D" uid="uid://cgncg7ayaqlsb" path="res://player/Playerstandin.png" id="2_j185d"]
 [ext_resource type="Script" uid="uid://b8t24ljufuwrl" path="res://player/states/idle.gd" id="3_marfm"]
-[ext_resource type="Script" uid="uid://32o2xgb2wyqd" path="res://player/states/playerStates.gd" id="4_bgi0l"]
 [ext_resource type="Script" uid="uid://cuagq4m3vycdc" path="res://player/states/run.gd" id="4_p6wgc"]
 [ext_resource type="Script" uid="uid://df4sd7nsouqpk" path="res://player/states/jump.gd" id="5_bgi0l"]
 [ext_resource type="Script" uid="uid://cqsw1odi2daqy" path="res://player/states/fall.gd" id="6_7jnpu"]
@@ -87,7 +86,6 @@ shape = SubResource("RectangleShape2D_rgyib")
 disabled = true
 
 [node name="States" type="Node" parent="."]
-script = ExtResource("4_bgi0l")
 
 [node name="Idle" type="Node" parent="States"]
 unique_name_in_owner = true

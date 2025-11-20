@@ -18,7 +18,13 @@ func enter() -> void:
 		jump_velocity_override = 0
 	else:
 		player.velocity.y = -jump_velocity * super_speed_multiplier
-
+	
+	if player.previousState == fall and not Input.is_action_pressed("jump"):
+		await get_tree().physics_frame
+		player.velocity.y *= 0.5
+		player.changeState(fall)
+		pass
+		
 
 func exit() -> void:
 	# Reset everything to safe defaults
@@ -30,7 +36,6 @@ func handleInput(event : InputEvent) -> PlayerState:
 	if Input.is_action_just_pressed("attack"):
 		return attack
 
-		
 	if not fixed_jump and event.is_action_released("jump"):
 		player.velocity.y *= 0.5
 		return fall

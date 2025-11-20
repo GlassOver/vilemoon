@@ -14,6 +14,7 @@ var nextState : PlayerState
 @onready var ledgegrab: PlayerStateLedgeGrab = %LedgeGrab
 @onready var dodge: PlayerStateDodge = %Dodge
 @onready var attack: PlayerStateAttack = %Attack
+@onready var stun: PlayerStateStun = %Stun
 
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://vet823h56j46"]
+[gd_scene load_steps=18 format=3 uid="uid://vet823h56j46"]
 
 [ext_resource type="Script" uid="uid://bdeol3j31k8uv" path="res://Global/level.gd" id="1_satuh"]
 [ext_resource type="Texture2D" uid="uid://4fippf5e8l23" path="res://tilesets/Shittile.png" id="1_u52ul"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://j7sq2vpwi3cj" path="res://items/item_pickup/item_pickup.tscn" id="6_0rg8l"]
 [ext_resource type="Resource" uid="uid://c67k1yrd0vwfw" path="res://items/scripts/potion.tres" id="7_6w4ab"]
 [ext_resource type="Resource" uid="uid://bhox1lyao8d23" path="res://items/scripts/decoder.tres" id="8_n8wy4"]
+[ext_resource type="PackedScene" uid="uid://71kw1c2c5p8a" path="res://Enemies/Slime/slime.tscn" id="9_6w4ab"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vonw3"]
 texture = ExtResource("1_u52ul")
@@ -129,8 +130,6 @@ limit_bottom = 85
 
 [node name="Player" parent="." instance=ExtResource("2_hjsbj")]
 position = Vector2(1057, -861)
-collision_layer = 7
-collision_mask = 7
 
 [node name="Spike" parent="." instance=ExtResource("5_p5284")]
 position = Vector2(751, -865)
@@ -142,3 +141,6 @@ item_data = ExtResource("7_6w4ab")
 [node name="ItemPickup2" parent="." instance=ExtResource("6_0rg8l")]
 position = Vector2(647, -842)
 item_data = ExtResource("8_n8wy4")
+
+[node name="Slime" parent="." instance=ExtResource("9_6w4ab")]
+position = Vector2(561, -975)

@@ -1,7 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
-signal player_damaged(damage: int)
+signal player_damaged(hurt_box: HurtBox)
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_stand: CollisionShape2D = %CollisionShape2D
@@ -31,18 +31,18 @@ var previousState: PlayerState:
 var direction := Vector2.ZERO
 var gravity := 600.0
 var gravity_multiplier := 1.0
-var invulnerable := false
+var invulnerable : bool = false
 var min_health := 0
 var health := 100
 var max_value := 100
 
 func _ready() -> void:
-	print("New")
-	%Sword_Collider.disabled = true
+	PlayerManager.player = self
 	initializeStates()
 	dodgeTimer = dodgeTime
 	slideTimer = slideTime
 	hit_box.Damaged.connect(_take_damage)
+	update_hp(9999)
 	#healthbar.init_health(max_value)
 	print("Hitbox = ", hit_box)
 	print("HitBox script = ", hit_box.get_script())
@@ -102,12 +102,18 @@ func update_direction() -> void:
 		facing_right = false
 		scale.x = -scale.y
 
-func _take_damage(damage: int) -> void:
-	if invulnerable:
-		return
 
-	update_hp(-damage)
-	player_damaged.emit(damage)
+
+func _take_damage(hurt_box : HurtBox) -> void:
+	if invulnerable == true:
+		return
+	update_hp(-hurt_box.damage)
+	if health >= 0:
+		player_damaged.emit(hurt_box)
+	else:
+		player_damaged.emit(hurt_box)
+		update_hp(9999)
+	pass
 	
 
 
@@ -115,3 +121,15 @@ func update_hp(delta: int) -> void:
 	health = clampi(health + delta, 0, max_value)
 	print("Player HP after update: ", health)
 	
+	
+	
+
+func make_invulnerable(_duration : float = 1.0) -> void:
+	invulnerable = true
+	hit_box.monitoring = false
+	
+	await get_tree().create_timer(_duration).timeout
+	
+	invulnerable = false
+	hit_box.monitoring = true
+	pass

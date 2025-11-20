@@ -1,0 +1,81 @@
+[gd_scene load_steps=13 format=3 uid="uid://71kw1c2c5p8a"]
+
+[ext_resource type="Script" uid="uid://bpewqmw7sw58u" path="res://Enemies/Scripts/enemy.gd" id="1_byu67"]
+[ext_resource type="Script" uid="uid://dmksxpjut2wtt" path="res://Enemies/Scripts/enemy_state_machine.gd" id="2_wwfkb"]
+[ext_resource type="Script" uid="uid://cjsq3ajk6gigi" path="res://Enemies/Scripts/States/enemy_state_idle.gd" id="3_t8cwk"]
+[ext_resource type="Script" uid="uid://b4unweqhxuu8q" path="res://Enemies/Scripts/States/enemy_state_wander.gd" id="4_oij8y"]
+[ext_resource type="Script" uid="uid://cqg3svyj0hatr" path="res://Enemies/Scripts/States/enemy_state_stun.gd" id="5_pg00x"]
+[ext_resource type="PackedScene" uid="uid://bfdpeocn58hen" path="res://player/healthbar/hurtbox/hurt_box.tscn" id="6_jlwhn"]
+[ext_resource type="Script" uid="uid://ddm7k0okmilg5" path="res://Enemies/Scripts/States/enemy_state_destroyed.gd" id="6_n8fnr"]
+[ext_resource type="Script" uid="uid://d133nvuuiegwk" path="res://player/healthbar/hitbox/hitbox.gd" id="7_jlwhn"]
+
+[sub_resource type="Gradient" id="Gradient_vswm2"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_byu67"]
+gradient = SubResource("Gradient_vswm2")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wwfkb"]
+size = Vector2(46, 38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n8fnr"]
+size = Vector2(54.5, 41)
+
+[node name="Slime" type="CharacterBody2D"]
+collision_layer = 256
+script = ExtResource("1_byu67")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.0000002, 0)
+scale = Vector2(0.17578125, 38)
+texture = SubResource("GradientTexture1D_byu67")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_wwfkb")
+
+[node name="EnemyStateMachine" type="Node" parent="."]
+script = ExtResource("2_wwfkb")
+
+[node name="Idle" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("after_idle_state")]
+script = ExtResource("3_t8cwk")
+after_idle_state = NodePath("../Wander")
+
+[node name="Wander" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("next_state")]
+script = ExtResource("4_oij8y")
+anim_name = null
+wander_speed = null
+state_animation_duration = null
+state_cycles_min = null
+state_cycles_max = null
+next_state = NodePath("../Idle")
+
+[node name="Stun" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("next_state")]
+script = ExtResource("5_pg00x")
+next_state = NodePath("../Idle")
+
+[node name="Destroy" type="Node" parent="EnemyStateMachine"]
+script = ExtResource("6_n8fnr")
+
+[node name="HurtBox" parent="." instance=ExtResource("6_jlwhn")]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(1.25, 0)
+shape = SubResource("RectangleShape2D_n8fnr")
+debug_color = Color(1, 0.9407341, 0.5394591, 0.41960785)
+
+[node name="DestroyEffectSprite" type="Sprite2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DestroyEffectSprite"]
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 256
+script = ExtResource("7_jlwhn")
+metadata/_custom_type_script = "uid://d133nvuuiegwk"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(1.25, 0)
+shape = SubResource("RectangleShape2D_n8fnr")
+debug_color = Color(1, 0, 0.11083698, 0.41960785)
