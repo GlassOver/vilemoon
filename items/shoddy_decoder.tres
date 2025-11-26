@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://g2fodkxuce8k"]
+
+[ext_resource type="Script" uid="uid://bdk3i4hgmsw6b" path="res://items/item_effects/item_effect.gd" id="1_1d1qc"]
+[ext_resource type="Script" uid="uid://47878a6y6lk0" path="res://items/scripts/item_data.gd" id="2_03xy3"]
+
+[resource]
+script = ExtResource("2_03xy3")
+name = "Shoddy Decoder"
+description = "A device that allows machines access to this world's magic. This one appears to be irreperable."
+quality = "Shoddy"
+metadata/_custom_type_script = "uid://47878a6y6lk0"

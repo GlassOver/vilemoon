@@ -3,8 +3,12 @@ extends Node
 const PLAYER = preload("res://Global/player.tscn")
 const INVENTORY_DATA : InventoryData = preload("res://GUI/pause_menu/inventory/scripts/player_inventory.tres")
 
+signal player_leveled_up
+
+
 var player: Player
 var player_spawned : bool = true
+var level_requirements = [0, 100, 140, 180, 220, 260, 299, 339, 378, 417, 456]
 
 func _ready():
 	call_deferred("add_player_instance")
@@ -35,3 +39,26 @@ func set_as_parent(_p : Node2D) -> void:
 func unparent_player(_p : Node2D) -> void:
 	_p.remove_child(player)
 	
+	
+func reward_xp(_xp : int) -> void:
+	player.xp += _xp
+	check_for_level_advance()
+	player_leveled_up.emit()
+
+
+		
+	#check for level advancement
+func check_for_level_advance()-> void:
+	if player.lvl >= level_requirements.size():
+		return
+	if player.xp >= level_requirements[player.lvl]:
+		player.lvl += 1
+		player.max_value += 10
+		player.sp += randf_range(0,5)
+		player.str += randf_range(0,5)
+		player.def += randf_range(0,5)
+		player.spd += randf_range(0,5)
+		player.spi += randf_range(0,5)
+		player.wil += randf_range(0,5)
+		check_for_level_advance()
+	pass

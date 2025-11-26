@@ -2,6 +2,7 @@ extends CanvasLayer
 
 @onready var button_save: Button = $VBoxContainer/Button_Save
 @onready var button_load: Button = $VBoxContainer/Button_Load
+@onready var button_stats: Button = $VBoxContainer/Button_Stats
 
 signal shown
 signal hidden
@@ -12,6 +13,7 @@ func _ready() -> void:
 	visible = false
 	button_save.pressed.connect(_on_save_pressed)
 	button_load.pressed.connect(_on_load_pressed)
+	button_stats.pressed.connect(_on_stats_pressed)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -38,8 +40,17 @@ func close_pause_menu() -> void:
 	hidden.emit()
 
 func _on_save_pressed() -> void:
-	SaveManager.save_game()
+	var equipment_menu_scene = load("res://GUI/pause_menu/equipment/equipment_menu.tscn")
+	var equipment_menu = equipment_menu_scene.instantiate()
+	get_tree().root.add_child(equipment_menu)
 
+
+func _on_stats_pressed() -> void:
+	var stats_menu_scene = load("res://GUI/pause_menu/inventory/stats_menu.tscn")
+	var stats_menu = stats_menu_scene.instantiate()
+	get_tree().root.add_child(stats_menu)
+	
+	visible = false
 
 func _on_load_pressed() -> void:
 	# Open item menu instead of changing the whole scene

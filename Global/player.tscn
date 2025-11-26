@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bf5tqkwm0y2l3"]
+[gd_scene load_steps=22 format=3 uid="uid://bf5tqkwm0y2l3"]
 
 [ext_resource type="Script" uid="uid://bee6ytpl3yau7" path="res://player/player.gd" id="1_vvscm"]
 [ext_resource type="Texture2D" uid="uid://cgncg7ayaqlsb" path="res://player/Playerstandin.png" id="2_j185d"]
@@ -12,8 +12,9 @@
 [ext_resource type="Script" uid="uid://4sgmyuyudauo" path="res://player/states/dodge.gd" id="9_qwug2"]
 [ext_resource type="Script" uid="uid://ctu76b0ektvmx" path="res://player/states/attack.gd" id="10_fou7p"]
 [ext_resource type="PackedScene" uid="uid://bfdpeocn58hen" path="res://player/healthbar/hurtbox/hurt_box.tscn" id="12_marfm"]
-[ext_resource type="Script" uid="uid://cktnpnxw3u81t" path="res://Global/stun.gd" id="12_p6wgc"]
+[ext_resource type="Script" uid="uid://cktnpnxw3u81t" path="res://player/states/stun.gd" id="12_p6wgc"]
 [ext_resource type="Script" uid="uid://d133nvuuiegwk" path="res://player/healthbar/hitbox/hitbox.gd" id="13_p6wgc"]
+[ext_resource type="PackedScene" uid="uid://rid55rih0dkw" path="res://items/item_magnet/item_magnet.tscn" id="15_7jnpu"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rkbax"]
 animations = [{
@@ -39,18 +40,21 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_bgi0l"]
-radius = 79.00633
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_boad6"]
 size = Vector2(20, 33.249416)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rgyib"]
 size = Vector2(20, 38.322548)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_bgi0l"]
+radius = 79.00633
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j185d"]
 radius = 19.0
 height = 74.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dpq8s"]
+radius = 98.02041
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 8
@@ -62,17 +66,6 @@ position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_rkbax")
 animation = &"standinRun"
 autoplay = "standinIdle"
-
-[node name="HurtBox" parent="." instance=ExtResource("12_marfm")]
-collision_layer = 256
-collision_mask = 256
-
-[node name="Sword_Collider" type="CollisionShape2D" parent="HurtBox"]
-unique_name_in_owner = true
-position = Vector2(95, -47)
-shape = SubResource("CircleShape2D_bgi0l")
-disabled = true
-debug_color = Color(0.7749407, 0.14539094, 0.21738556, 0.41960785)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
@@ -127,6 +120,35 @@ decelerate_speed = 11.0
 unique_name_in_owner = true
 script = ExtResource("12_p6wgc")
 
+[node name="HurtBox" parent="." instance=ExtResource("12_marfm")]
+collision_layer = 256
+collision_mask = 256
+
+[node name="Sword_Collider" type="CollisionShape2D" parent="HurtBox"]
+unique_name_in_owner = true
+position = Vector2(99, -47)
+shape = SubResource("CircleShape2D_bgi0l")
+disabled = true
+debug_color = Color(0.7749407, 0.14539094, 0.21738556, 0.41960785)
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 264
+collision_mask = 256
+script = ExtResource("13_p6wgc")
+metadata/_custom_type_script = "uid://d133nvuuiegwk"
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, -32)
+shape = SubResource("CapsuleShape2D_j185d")
+debug_color = Color(0.9310799, 0.91179985, 0.6339296, 0.41960785)
+
+[node name="ItemMagnet" parent="." instance=ExtResource("15_7jnpu")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemMagnet"]
+position = Vector2(0, -32)
+shape = SubResource("CircleShape2D_dpq8s")
+debug_color = Color(0.99217784, 0.6592157, 0.9765604, 0.41960785)
+
 [node name="OneWayPlatformRaycast" type="RayCast2D" parent="."]
 unique_name_in_owner = true
 target_position = Vector2(0, 4)
@@ -139,13 +161,12 @@ rotation = 1.5707964
 target_position = Vector2(0, -11.999998)
 collision_mask = 4
 
-[node name="HitBox" type="Area2D" parent="."]
-collision_layer = 264
-collision_mask = 256
-script = ExtResource("13_p6wgc")
-metadata/_custom_type_script = "uid://d133nvuuiegwk"
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(0, -32)
-shape = SubResource("CapsuleShape2D_j185d")
-debug_color = Color(0.9310799, 0.91179985, 0.6339296, 0.41960785)
+[node name="HP" type="Label" parent="CanvasLayer"]
+offset_left = 11.0
+offset_top = 7.0
+offset_right = 71.0
+offset_bottom = 56.0
+theme_override_font_sizes/font_size = 32

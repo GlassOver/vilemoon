@@ -7,6 +7,7 @@ signal enemy_destroyed(hurt_box : HurtBox)
 const DIR_4 = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
 
 @export var hp : int = 30
+@export var xp_reward : int = 1
 
 var cardinal_direction : Vector2 = Vector2.DOWN
 var direction : Vector2 = Vector2.ZERO
@@ -65,6 +66,7 @@ func _take_damage(hurt_box : HurtBox) -> void:
 	if invunlerable == true:
 		return
 	hp-= hurt_box.damage
+	EffectManager.damage_text(hurt_box.damage, global_position + Vector2(0,-36))
 	if hp > 0:
 		enemy_damaged.emit(hurt_box)
 	else:

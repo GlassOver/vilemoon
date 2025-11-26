@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="EquipInventoryData" load_steps=7 format=3 uid="uid://2s08eeixxixc"]
+
+[ext_resource type="Script" uid="uid://dgr34jb8vai" path="res://GUI/pause_menu/equipment/scripts/equip_slot_data.gd" id="1_tt0ho"]
+[ext_resource type="Resource" uid="uid://c4ihf3q1ib3fn" path="res://GUI/pause_menu/equipment/equipment_items/c_blackened_coat.tres" id="2_5ioe7"]
+[ext_resource type="Script" uid="uid://bgkb2c1n407k8" path="res://GUI/pause_menu/equipment/scripts/equip_inventory_data.gd" id="2_wch4y"]
+[ext_resource type="Resource" uid="uid://cc8us145thkf7" path="res://GUI/pause_menu/equipment/equipment_items/w_nights_end.tres" id="3_wtqr7"]
+
+[sub_resource type="Resource" id="Resource_4f1iw"]
+script = ExtResource("1_tt0ho")
+equip_item_data = ExtResource("2_5ioe7")
+quantity = 1
+metadata/_custom_type_script = "uid://dgr34jb8vai"
+
+[sub_resource type="Resource" id="Resource_7k5qu"]
+script = ExtResource("1_tt0ho")
+equip_item_data = ExtResource("3_wtqr7")
+quantity = 1
+metadata/_custom_type_script = "uid://dgr34jb8vai"
+
+[resource]
+script = ExtResource("2_wch4y")
+EquipSlots = Array[ExtResource("1_tt0ho")]([SubResource("Resource_4f1iw"), null, null, null, null, null, null, SubResource("Resource_7k5qu"), null, null, null, null, null])
+metadata/_custom_type_script = "uid://bgkb2c1n407k8"

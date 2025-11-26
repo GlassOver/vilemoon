@@ -1,17 +1,19 @@
-class_name Player
-extends CharacterBody2D
+class_name Player extends CharacterBody2D
 
 signal player_damaged(hurt_box: HurtBox)
 
+#region /// On Ready Variables
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_stand: CollisionShape2D = %CollisionShape2D
 @onready var collision_crouch: CollisionShape2D = %CollisionCrouch
 @onready var one_way_platform_raycast: RayCast2D = %OneWayPlatformRaycast
 @onready var ledge_left: RayCast2D = %LedgeLeft
 @onready var hit_box: HitBox = $HitBox
+@onready var hp_label: Label = $CanvasLayer/HP
 
+#endregion
 
-
+#region /// Export Variables
 @export var move_speed := 500.0
 @export var jump_move_speed := 400.0
 @export var dodgeTimer := 0.0
@@ -24,6 +26,34 @@ signal player_damaged(hurt_box: HurtBox)
 
 @export var facing_right := true
 @export var isAttacking := false
+@export var isSliding:= false
+@export var isDodging:= false
+#endregion
+
+#region /// Player Statistics
+
+var lvl : int = 1
+var xp : int = 0
+
+var min_health := 0
+var health := 100
+var max_value := 100
+
+var sp : int = 100
+@warning_ignore("shadowed_global_identifier")
+var str : int = 10 :
+	set(v):
+		str = v
+		update_damage_values()
+var def : int = 10
+var spi : int = 10
+var wil : int = 10
+var spd : int = 10
+
+
+
+#endregion
+
 
 var states: Array[PlayerState]
 var currentState: PlayerState:
@@ -35,9 +65,8 @@ var direction := Vector2.ZERO
 var gravity := 600.0
 var gravity_multiplier := 1.0
 var invulnerable : bool = false
-var min_health := 0
-var health := 100
-var max_value := 100
+var signalled_state : PlayerState = null
+
 
 func _ready() -> void:
 	PlayerManager.player = self
@@ -47,9 +76,12 @@ func _ready() -> void:
 	attackTimer = attackCooldown
 	hit_box.Damaged.connect(_take_damage)
 	update_hp(9999)
+	update_damage_values()
+	PlayerManager.player_leveled_up.connect(update_damage_values)
 	#healthbar.init_health(max_value)
-	print("Hitbox = ", hit_box)
-	print("HitBox script = ", hit_box.get_script())
+#	player_damaged.connect(PlayerState._ready)
+	
+	
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -64,6 +96,7 @@ func _process(delta: float) -> void:
 	
 
 func _physics_process(delta: float) -> void:
+	hp_label.text = str(health)
 	velocity.y += gravity * delta * gravity_multiplier
 	move_and_slide()
 	changeState(currentState.physics_process(delta))
@@ -112,20 +145,25 @@ func update_direction() -> void:
 func _take_damage(hurt_box : HurtBox) -> void:
 	if invulnerable == true:
 		return
-	update_hp(-hurt_box.damage)
+	
 	if health >= 0:
+		var dmg : float = hurt_box.damage
+		
+		if dmg > 0:
+			dmg = clampi(dmg - def, 1, dmg)
+		
+		update_hp(-dmg)
 		player_damaged.emit(hurt_box)
+		
 	else:
 		player_damaged.emit(hurt_box)
 		update_hp(9999)
 	pass
 	
 
-
 func update_hp(delta: int) -> void:
 	health = clampi(health + delta, 0, max_value)
 	print("Player HP after update: ", health)
-	
 	
 
 func make_invulnerable(_duration : float = 1.0) -> void:
@@ -136,4 +174,12 @@ func make_invulnerable(_duration : float = 1.0) -> void:
 	
 	invulnerable = false
 	hit_box.monitoring = true
+	pass
+	
+	
+	
+func update_damage_values() -> void:
+	$HurtBox.damage = str 
+	
+	
 	pass

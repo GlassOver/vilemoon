@@ -2,6 +2,7 @@ class_name PlayerState extends Node
 
 var player : Player
 var nextState : PlayerState
+var signalled_state : PlayerState = null
 
 #region /// state references 
 	#reference to all other states
@@ -18,13 +19,20 @@ var nextState : PlayerState
 
 
 
-
-
 # What happens when this state is initialized?
 func init() -> void: 
 	pass
 	
 	
+#func _ready():
+#	player.player_damaged.connect(_on_player_stunned)
+	
+	
+#func _on_player_stunned():
+#	if not signalled_state:
+#		signalled_state = stun
+
+
 	
 # What happens when we enter this state?
 func enter() -> void:

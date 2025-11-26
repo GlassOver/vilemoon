@@ -15,12 +15,15 @@ var next_state : PlayerState = null
 func init() -> void:
 	player.player_damaged.connect(_player_damaged)
 	pass
+	
+	
+func _ready():
+	pass
 
 
 func enter() -> void:
 	#player.animation_player.animation_finished.connect(_animation_finished)
-	print("Stunned")
-	
+	#print("Stunned")
 	direction = player.global_position.direction_to(hurt_box.global_position)
 	direction.y = clampf(direction.y, -.5, +.5)
 	direction.y /= 100
@@ -33,7 +36,7 @@ func enter() -> void:
 	pass
 	
 func _animation_finished():
-	print("erm")
+	#print("erm")
 	pass
 	
 func process(_delta : float ) -> PlayerState:
@@ -51,7 +54,7 @@ func exit() -> void:
 	pass
 
 func _player_damaged(_hurt_box : HurtBox) :
-	print("damaged2")
+	#print("damaged2")
 	hurt_box = _hurt_box
 	enter()
 	return 

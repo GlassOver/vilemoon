@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://71kw1c2c5p8a"]
+[gd_scene load_steps=18 format=3 uid="uid://71kw1c2c5p8a"]
 
 [ext_resource type="Script" uid="uid://bpewqmw7sw58u" path="res://Enemies/Scripts/enemy.gd" id="1_byu67"]
 [ext_resource type="Script" uid="uid://dmksxpjut2wtt" path="res://Enemies/Scripts/enemy_state_machine.gd" id="2_wwfkb"]
@@ -8,6 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://bfdpeocn58hen" path="res://player/healthbar/hurtbox/hurt_box.tscn" id="6_jlwhn"]
 [ext_resource type="Script" uid="uid://ddm7k0okmilg5" path="res://Enemies/Scripts/States/enemy_state_destroyed.gd" id="6_n8fnr"]
 [ext_resource type="Script" uid="uid://d133nvuuiegwk" path="res://player/healthbar/hitbox/hitbox.gd" id="7_jlwhn"]
+[ext_resource type="Script" uid="uid://bl06e4y3xddbq" path="res://Enemies/Scripts/drop_data.gd" id="7_pydiu"]
+[ext_resource type="Resource" uid="uid://buahagwpd0niq" path="res://items/scraps.tres" id="8_2qn7y"]
+[ext_resource type="Resource" uid="uid://g2fodkxuce8k" path="res://items/shoddy_decoder.tres" id="9_843tw"]
 
 [sub_resource type="Gradient" id="Gradient_vswm2"]
 colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
@@ -18,12 +21,26 @@ gradient = SubResource("Gradient_vswm2")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wwfkb"]
 size = Vector2(46, 38)
 
+[sub_resource type="Resource" id="Resource_t1krp"]
+script = ExtResource("7_pydiu")
+item = ExtResource("8_2qn7y")
+probability = 60.0
+max_amount = 10
+metadata/_custom_type_script = "uid://bl06e4y3xddbq"
+
+[sub_resource type="Resource" id="Resource_nsi17"]
+script = ExtResource("7_pydiu")
+item = ExtResource("9_843tw")
+probability = 5.0
+metadata/_custom_type_script = "uid://bl06e4y3xddbq"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n8fnr"]
 size = Vector2(54.5, 41)
 
 [node name="Slime" type="CharacterBody2D"]
 collision_layer = 256
 script = ExtResource("1_byu67")
+xp_reward = 300
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1.0000002, 0)
@@ -56,9 +73,11 @@ next_state = NodePath("../Idle")
 
 [node name="Destroy" type="Node" parent="EnemyStateMachine"]
 script = ExtResource("6_n8fnr")
+drops = Array[ExtResource("7_pydiu")]([SubResource("Resource_t1krp"), SubResource("Resource_nsi17")])
 
 [node name="HurtBox" parent="." instance=ExtResource("6_jlwhn")]
 collision_layer = 8
+damage = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(1.25, 0)

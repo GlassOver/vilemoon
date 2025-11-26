@@ -14,7 +14,6 @@ func enter() -> void:
 	#player.UpdateAnimation("attack")
 	#animation_player.animation_finished.connect(EndAttack)
 	%Sword_Collider.disabled = false
-
 	attacking = true
 	tempAttackTime = tempAttackTimer
 	

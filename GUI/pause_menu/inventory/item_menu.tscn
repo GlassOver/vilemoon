@@ -1,9 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbn5gjtbi0sbx"]
+[gd_scene load_steps=7 format=3 uid="uid://cbn5gjtbi0sbx"]
 
 [ext_resource type="PackedScene" uid="uid://dr8u34q4dsu0e" path="res://GUI/pause_menu/inventory/scripts/inventory slot.tscn" id="1_f4oge"]
 [ext_resource type="Script" uid="uid://ynjlih6lb1d1" path="res://GUI/pause_menu/inventory/item_menu.gd" id="1_ut7us"]
 [ext_resource type="Script" uid="uid://cmwqgqjync53n" path="res://GUI/pause_menu/inventory/scripts/inventory_ui.gd" id="2_d27e0"]
 [ext_resource type="Resource" uid="uid://cvb6skgx5ne6m" path="res://GUI/pause_menu/inventory/scripts/player_inventory.tres" id="3_88q6a"]
+
+[sub_resource type="Gradient" id="Gradient_88q6a"]
+colors = PackedColorArray(0.08922793, 0.14711152, 0.24881959, 1, 0.40067974, 0.40156442, 0.3407496, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yl21o"]
+gradient = SubResource("Gradient_88q6a")
+fill_from = Vector2(0.509375, 0.009375)
+fill_to = Vector2(0.809375, 0.321875)
 
 [node name="ItemMenu" type="CanvasLayer"]
 script = ExtResource("1_ut7us")
@@ -14,13 +22,19 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -334.0
+offset_left = -321.0
 offset_top = -192.0
-offset_right = 397.0
+offset_right = 317.0
 offset_bottom = 197.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.2509804, 0.4392157, 0.7254902, 1)
+color = Color(0.2508037, 0.43893027, 0.72503954, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(319.775, 184.76503)
+rotation = 4.712389
+scale = Vector2(6.0054946, 10.157235)
+texture = SubResource("GradientTexture2D_yl21o")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -106,12 +120,10 @@ scale = Vector2(1, 1.1600001)
 layout_mode = 0
 offset_left = 355.0
 offset_top = 167.0
-offset_right = 607.354
+offset_right = 591.0
 offset_bottom = 236.0
 scale = Vector2(1, 1.1600001)
 theme_override_font_sizes/font_size = 8
-text = "
-A deep red elixir. Restores a minor amount of health. "
 autowrap_mode = 2
 
 [node name="ItemName" type="Label" parent="Control"]
@@ -122,7 +134,6 @@ offset_right = 607.354
 offset_bottom = 217.99998
 scale = Vector2(1, 1.1600001)
 theme_override_font_sizes/font_size = 7
-text = "Potion of Minor Healing "
 autowrap_mode = 2
 
 [node name="ItemQuality" type="Label" parent="Control"]
@@ -133,7 +144,6 @@ offset_right = 599.0
 offset_bottom = 218.0
 scale = Vector2(1, 1.1600001)
 theme_override_font_sizes/font_size = 7
-text = "Poor"
 autowrap_mode = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

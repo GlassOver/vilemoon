@@ -1,0 +1,204 @@
+[gd_scene load_steps=2 format=3 uid="uid://divc6p737ktjw"]
+
+[ext_resource type="Script" uid="uid://box2dewp7xowi" path="res://GUI/stats/stats.gd" id="1_5pewq"]
+
+[node name="Stats" type="Node"]
+script = ExtResource("1_5pewq")
+
+[node name="ExpCont" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 0.35)
+offset_left = 505.545
+offset_top = 84.0
+offset_right = 589.54675
+offset_bottom = 98.0
+
+[node name="Label" type="Label" parent="ExpCont"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67897266, 0.82246137, 0.82246137, 1)
+theme_override_colors/font_shadow_color = Color(0.25265828, 0.31187868, 0.37767914, 0.5803922)
+theme_override_font_sizes/font_size = 10
+text = "EXP"
+
+[node name="Label2" type="Label" parent="ExpCont"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+text = "1"
+horizontal_alignment = 2
+
+[node name="HpCont" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 0.35)
+offset_left = 345.0
+offset_top = 51.185
+offset_right = 429.00003
+offset_bottom = 65.18503
+
+[node name="Label" type="Label" parent="HpCont"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67897266, 0.82246137, 0.82246137, 1)
+theme_override_colors/font_shadow_color = Color(0.25265828, 0.31187868, 0.37767914, 0.5803922)
+theme_override_font_sizes/font_size = 10
+text = "HP"
+
+[node name="Label2" type="Label" parent="HpCont"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+text = "100"
+horizontal_alignment = 2
+
+[node name="HpCont2" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 0.35)
+offset_left = 345.0
+offset_top = 64.55
+offset_right = 429.00003
+offset_bottom = 78.55009
+
+[node name="Label" type="Label" parent="HpCont2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67897266, 0.82246137, 0.82246137, 1)
+theme_override_colors/font_shadow_color = Color(0.25265828, 0.31187868, 0.37767914, 0.5803922)
+theme_override_font_sizes/font_size = 10
+text = "SP"
+
+[node name="Label2" type="Label" parent="HpCont2"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+text = "100"
+horizontal_alignment = 2
+
+[node name="LvlCont" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 0.35)
+offset_left = 345.0
+offset_top = 84.0
+offset_right = 434.0
+offset_bottom = 98.0
+
+[node name="Label" type="Label" parent="LvlCont"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67897266, 0.82246137, 0.82246137, 1)
+theme_override_colors/font_shadow_color = Color(0.25265828, 0.31187868, 0.37767914, 0.5803922)
+theme_override_font_sizes/font_size = 10
+text = "Level:"
+
+[node name="Label2" type="Label" parent="LvlCont"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+text = "1"
+horizontal_alignment = 2
+
+[node name="StatsCont" type="VBoxContainer" parent="."]
+offset_left = 346.0
+offset_top = 138.0
+offset_right = 489.0
+offset_bottom = 224.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="StatsCont"]
+custom_minimum_size = Vector2(0, 0.35)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StatsCont/HBoxContainer3"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67897266, 0.82246137, 0.82246137, 1)
+theme_override_colors/font_shadow_color = Color(0.25265828, 0.31187868, 0.37767914, 0.5803922)
+theme_override_font_sizes/font_size = 10
+text = "Strength           "
+
+[node name="Label2" type="Label" parent="StatsCont/HBoxContainer3"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+text = "1"
+horizontal_alignment = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="StatsCont"]
+custom_minimum_size = Vector2(0, 0.35)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StatsCont/HBoxContainer4"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67897266, 0.82246137, 0.82246137, 1)
+theme_override_colors/font_shadow_color = Color(0.25265828, 0.31187868, 0.37767914, 0.5803922)
+theme_override_font_sizes/font_size = 10
+text = "Constitution    "
+
+[node name="Label2" type="Label" parent="StatsCont/HBoxContainer4"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+text = "1"
+horizontal_alignment = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="StatsCont"]
+custom_minimum_size = Vector2(0, 0.35)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StatsCont/HBoxContainer5"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67897266, 0.82246137, 0.82246137, 1)
+theme_override_colors/font_shadow_color = Color(0.25265828, 0.31187868, 0.37767914, 0.5803922)
+theme_override_font_sizes/font_size = 10
+text = "Speed                "
+
+[node name="Label2" type="Label" parent="StatsCont/HBoxContainer5"]
+custom_minimum_size = Vector2(29, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+text = "1"
+horizontal_alignment = 2
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="StatsCont"]
+custom_minimum_size = Vector2(0, 0.35)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StatsCont/HBoxContainer6"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67897266, 0.82246137, 0.82246137, 1)
+theme_override_colors/font_shadow_color = Color(0.25265828, 0.31187868, 0.37767914, 0.5803922)
+theme_override_font_sizes/font_size = 10
+text = "Spirit Potency "
+
+[node name="Label2" type="Label" parent="StatsCont/HBoxContainer6"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+text = "1"
+horizontal_alignment = 2
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="StatsCont"]
+custom_minimum_size = Vector2(0, 0.35)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="StatsCont/HBoxContainer7"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67897266, 0.82246137, 0.82246137, 1)
+theme_override_colors/font_shadow_color = Color(0.25265828, 0.31187868, 0.37767914, 0.5803922)
+theme_override_font_sizes/font_size = 10
+text = "Willpower        "
+
+[node name="Label2" type="Label" parent="StatsCont/HBoxContainer7"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+text = "1"
+horizontal_alignment = 2

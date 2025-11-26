@@ -8,6 +8,7 @@ var slideDuration = 0
 var slideTimer = 0.01
 var slide_cooldown_timer : float = 0.0  
 
+
  
    
 
@@ -17,16 +18,22 @@ func init() -> void:
 
 
 func enter() -> void:
+
+	if player.isDodging == true:
+		exit()
 	player.collision_stand.disabled = true
 	player.collision_crouch.disabled = false
+	player.isSliding = true
 	slideDuration = slideTimer
 	pass
 
 
 func exit() -> void:
+	
 	player.slideTimer = player.slideTime
 	player.collision_stand.disabled = false
 	player.collision_crouch.disabled = true
+	player.isSliding = false
 	
 	pass
 
@@ -39,6 +46,9 @@ func handleInput(_event : InputEvent) -> PlayerState:
 
 func process(_delta: float) -> PlayerState:
 	slideDuration -= _delta
+	
+	if player.isDodging == true:
+		exit()
 
 	if player.direction.y <= 0.5:
 		return idle
@@ -46,9 +56,12 @@ func process(_delta: float) -> PlayerState:
 
 
 func physics_process(_delta: float) -> PlayerState:
+	if player.isDodging == true:
+		exit()
 	if slideDuration >= 0:
 		var boosted = k * k
 		player.velocity.x = player.velocity.x * boosted
+
 
 	player.velocity.x -= player.velocity.x * deceleration_rate * _delta
 	return nextState

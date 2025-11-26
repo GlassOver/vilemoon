@@ -12,5 +12,4 @@ func _on_area_entered(area: Area2D) -> void:
 
 
 func TakeDamage(hurt_box : HurtBox) -> void:
-	print("Take Damage:", hurt_box)
 	Damaged.emit(hurt_box)

@@ -1,0 +1,290 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1red4nt1203x"]
+
+[ext_resource type="Script" uid="uid://872e2nkaq1rp" path="res://GUI/pause_menu/inventory/stats_menu.gd" id="1_3rrf6"]
+
+[sub_resource type="Gradient" id="Gradient_88q6a"]
+colors = PackedColorArray(0.08922793, 0.14711152, 0.24881959, 1, 0.7692804, 0.7953067, 0.68793756, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yl21o"]
+gradient = SubResource("Gradient_88q6a")
+fill_from = Vector2(0.1375, 0)
+fill_to = Vector2(0.75, 0.56875)
+
+[node name="StatsMenu" type="CanvasLayer"]
+script = ExtResource("1_3rrf6")
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -321.0
+offset_top = -192.0
+offset_right = 317.0
+offset_bottom = 197.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2508037, 0.43893027, 0.72503954, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(316.95752, 187.20679)
+rotation = 4.712389
+scale = Vector2(5.8352747, 9.951797)
+texture = SubResource("GradientTexture2D_yl21o")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 317.0
+offset_top = 46.0
+offset_right = 578.0
+offset_bottom = 101.0
+grow_horizontal = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 317.0
+offset_top = 116.0
+offset_right = 578.0
+offset_bottom = 289.27585
+grow_horizontal = 2
+scale = Vector2(1, 1.1600001)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 42.0
+offset_top = 12.0
+offset_right = 207.0
+offset_bottom = 148.0
+grow_vertical = 2
+
+[node name="Button_Save" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Equip"
+
+[node name="Button_Load" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Items"
+
+[node name="Button_Spells" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Spells"
+
+[node name="Button_Stats" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Stats"
+
+[node name="Stats" type="Node" parent="Control"]
+
+[node name="ExpCont" type="HBoxContainer" parent="Control/Stats"]
+custom_minimum_size = Vector2(0, 0.35)
+offset_left = 499.545
+offset_top = 84.0
+offset_right = 583.54504
+offset_bottom = 98.0
+
+[node name="Label" type="Label" parent="Control/Stats/ExpCont"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67897266, 0.82246137, 0.82246137, 1)
+theme_override_colors/font_shadow_color = Color(0.25265828, 0.31187868, 0.37767914, 0.5803922)
+theme_override_font_sizes/font_size = 10
+text = "EXP"
+
+[node name="Label2" type="Label" parent="Control/Stats/ExpCont"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+text = "1"
+horizontal_alignment = 2
+
+[node name="HpCont" type="HBoxContainer" parent="Control/Stats"]
+custom_minimum_size = Vector2(0, 0.35)
+offset_left = 345.0
+offset_top = 51.185
+offset_right = 429.00003
+offset_bottom = 65.18503
+
+[node name="Label" type="Label" parent="Control/Stats/HpCont"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67897266, 0.82246137, 0.82246137, 1)
+theme_override_colors/font_shadow_color = Color(0.25265828, 0.31187868, 0.37767914, 0.5803922)
+theme_override_font_sizes/font_size = 10
+text = "HP"
+
+[node name="Label2" type="Label" parent="Control/Stats/HpCont"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+text = "100"
+horizontal_alignment = 2
+
+[node name="HpCont2" type="HBoxContainer" parent="Control/Stats"]
+custom_minimum_size = Vector2(0, 0.35)
+offset_left = 345.0
+offset_top = 64.55
+offset_right = 429.00003
+offset_bottom = 78.55009
+
+[node name="Label" type="Label" parent="Control/Stats/HpCont2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67897266, 0.82246137, 0.82246137, 1)
+theme_override_colors/font_shadow_color = Color(0.25265828, 0.31187868, 0.37767914, 0.5803922)
+theme_override_font_sizes/font_size = 10
+text = "SP"
+
+[node name="Label2" type="Label" parent="Control/Stats/HpCont2"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+text = "100"
+horizontal_alignment = 2
+
+[node name="LvlCont" type="HBoxContainer" parent="Control/Stats"]
+custom_minimum_size = Vector2(0, 0.35)
+offset_left = 345.0
+offset_top = 84.0
+offset_right = 434.0
+offset_bottom = 98.0
+
+[node name="Label" type="Label" parent="Control/Stats/LvlCont"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67897266, 0.82246137, 0.82246137, 1)
+theme_override_colors/font_shadow_color = Color(0.25265828, 0.31187868, 0.37767914, 0.5803922)
+theme_override_font_sizes/font_size = 10
+text = "Level:"
+
+[node name="Label2" type="Label" parent="Control/Stats/LvlCont"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+text = "1"
+horizontal_alignment = 2
+
+[node name="StatsCont" type="VBoxContainer" parent="Control/Stats"]
+offset_left = 346.0
+offset_top = 138.0
+offset_right = 489.0
+offset_bottom = 224.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/Stats/StatsCont"]
+custom_minimum_size = Vector2(0, 0.35)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Stats/StatsCont/HBoxContainer3"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67897266, 0.82246137, 0.82246137, 1)
+theme_override_colors/font_shadow_color = Color(0.25265828, 0.31187868, 0.37767914, 0.5803922)
+theme_override_font_sizes/font_size = 10
+text = "Strength           "
+
+[node name="Label2" type="Label" parent="Control/Stats/StatsCont/HBoxContainer3"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+text = "1"
+horizontal_alignment = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Control/Stats/StatsCont"]
+custom_minimum_size = Vector2(0, 0.35)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Stats/StatsCont/HBoxContainer4"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67897266, 0.82246137, 0.82246137, 1)
+theme_override_colors/font_shadow_color = Color(0.25265828, 0.31187868, 0.37767914, 0.5803922)
+theme_override_font_sizes/font_size = 10
+text = "Constitution    "
+
+[node name="Label2" type="Label" parent="Control/Stats/StatsCont/HBoxContainer4"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+text = "1"
+horizontal_alignment = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Control/Stats/StatsCont"]
+custom_minimum_size = Vector2(0, 0.35)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Stats/StatsCont/HBoxContainer5"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67897266, 0.82246137, 0.82246137, 1)
+theme_override_colors/font_shadow_color = Color(0.25265828, 0.31187868, 0.37767914, 0.5803922)
+theme_override_font_sizes/font_size = 10
+text = "Speed                "
+
+[node name="Label2" type="Label" parent="Control/Stats/StatsCont/HBoxContainer5"]
+custom_minimum_size = Vector2(29, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+text = "1"
+horizontal_alignment = 2
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="Control/Stats/StatsCont"]
+custom_minimum_size = Vector2(0, 0.35)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Stats/StatsCont/HBoxContainer6"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67897266, 0.82246137, 0.82246137, 1)
+theme_override_colors/font_shadow_color = Color(0.25265828, 0.31187868, 0.37767914, 0.5803922)
+theme_override_font_sizes/font_size = 10
+text = "Spirit Potency "
+
+[node name="Label2" type="Label" parent="Control/Stats/StatsCont/HBoxContainer6"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+text = "1"
+horizontal_alignment = 2
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="Control/Stats/StatsCont"]
+custom_minimum_size = Vector2(0, 0.35)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Stats/StatsCont/HBoxContainer7"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67897266, 0.82246137, 0.82246137, 1)
+theme_override_colors/font_shadow_color = Color(0.25265828, 0.31187868, 0.37767914, 0.5803922)
+theme_override_font_sizes/font_size = 10
+text = "Willpower        "
+
+[node name="Label2" type="Label" parent="Control/Stats/StatsCont/HBoxContainer7"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+text = "1"
+horizontal_alignment = 2

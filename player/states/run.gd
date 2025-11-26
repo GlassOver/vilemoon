@@ -1,12 +1,12 @@
 class_name PlayerStateRun extends PlayerState
 
 
-
 # What happens when this state is initialized?
 func init() -> void: 
 	pass
 	
-	
+
+
 	
 # What happens when we enter this state?
 func enter() -> void:
@@ -40,6 +40,11 @@ func process(_delta: float) -> PlayerState:
 
 # What happens each physics process tick in this state?
 func physics_process(_delta: float) -> PlayerState:
+#	if signalled_state:
+#		var state_transition: PlayerState = signalled_state
+#		signalled_state = null
+#		return state_transition
+		
 	player.velocity.x = player.direction.x * player.move_speed
 	if player.is_on_floor() == false:
 		return fall

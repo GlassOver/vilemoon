@@ -15,5 +15,6 @@ func use() -> bool:
 		return false
 	
 	for e in effects:
-		e.use()
+		if e:
+			e.use()
 	return true

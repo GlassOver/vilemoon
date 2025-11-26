@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="EquipableItemData" load_steps=6 format=3 uid="uid://cc8us145thkf7"]
+
+[ext_resource type="Script" uid="uid://bdk3i4hgmsw6b" path="res://items/item_effects/item_effect.gd" id="1_au7gl"]
+[ext_resource type="Script" uid="uid://b1dqebuji43vm" path="res://GUI/pause_menu/equipment/scripts/equippable_item_modifier.gd" id="2_jnouq"]
+[ext_resource type="Script" uid="uid://cgj8xaa0065wy" path="res://GUI/pause_menu/equipment/scripts/equippable_item_data.gd" id="3_s1bsv"]
+
+[sub_resource type="Resource" id="Resource_au7gl"]
+script = ExtResource("2_jnouq")
+type = 2
+value = 10
+metadata/_custom_type_script = "uid://b1dqebuji43vm"
+
+[sub_resource type="Resource" id="Resource_jnouq"]
+script = ExtResource("2_jnouq")
+type = 12
+value = 2
+metadata/_custom_type_script = "uid://b1dqebuji43vm"
+
+[resource]
+script = ExtResource("3_s1bsv")
+modifiers = Array[ExtResource("2_jnouq")]([SubResource("Resource_au7gl"), SubResource("Resource_jnouq")])
+name = "Night's End"
+description = "With this blade I will repulse the night. Only I can do it. Only this blade can do it. "
+metadata/_custom_type_script = "uid://cgj8xaa0065wy"

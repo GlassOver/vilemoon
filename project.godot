@@ -22,6 +22,7 @@ GameManager="*res://script/game_manager.gd"
 LevelManager="*res://Global/global_level_manager.gd"
 PauseMenu="*res://GUI/pause_menu.tscn"
 SaveManager="*res://Global/global__save_manager.gd"
+EffectManager="*res://Global/global_effect_manager.gd"
 
 [display]
 

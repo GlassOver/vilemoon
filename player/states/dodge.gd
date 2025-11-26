@@ -20,6 +20,10 @@ var k: float = 2.0
 
 
 func enter() -> void:
+	
+	player.isDodging = true
+	if player.isSliding == true:
+		exit()
 	dodgeDuration = dodgeLength
 	started_in_air = not player.is_on_floor()
 	vertical_dodge = Input.is_action_pressed("up")
@@ -45,6 +49,9 @@ func enter() -> void:
 
 func physics_process(delta):
 	dodgeDuration -= delta
+	
+	if player.isSliding == true:
+		exit()
 
 	if vertical_dodge:
 		if started_in_air and player.velocity.y > max_slowfall_speed:
@@ -73,6 +80,8 @@ func physics_process(delta):
 
 
 func exit() -> void:
+
+	player.isDodging = false
 	player.dodgeTimer = player.dodgeTime
 	player.gravity_multiplier = 1.0
 	vertical_dodge = false
