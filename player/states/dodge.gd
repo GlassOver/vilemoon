@@ -65,7 +65,7 @@ func physics_process(delta):
 
 		return nextState
 
-	var boosted := player.move_speed * k * k
+	var boosted := player.move_speed * k * k + 100
 	player.velocity.x = _dodge_dir * boosted
 
 	if not player.is_on_floor():

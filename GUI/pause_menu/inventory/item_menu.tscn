@@ -77,6 +77,24 @@ layout_mode = 2
 [node name="InventorySlot6" parent="Control/PanelContainer/GridContainer" instance=ExtResource("1_f4oge")]
 layout_mode = 2
 
+[node name="InventorySlot7" parent="Control/PanelContainer/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
+[node name="InventorySlot8" parent="Control/PanelContainer/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
+[node name="InventorySlot9" parent="Control/PanelContainer/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
+[node name="InventorySlot10" parent="Control/PanelContainer/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
+[node name="InventorySlot11" parent="Control/PanelContainer/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
+[node name="InventorySlot12" parent="Control/PanelContainer/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
 [node name="PanelContainer3" type="PanelContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = 5

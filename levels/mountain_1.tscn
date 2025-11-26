@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://uk8yrkdrfilc"]
+
+[ext_resource type="Script" uid="uid://8gc4iedp0u5s" path="res://levels/camera_controller.gd" id="1_jkhjn"]
+[ext_resource type="PackedScene" uid="uid://bf5tqkwm0y2l3" path="res://Global/player.tscn" id="2_3koya"]
+
+[sub_resource type="TileSet" id="TileSet_tu8xm"]
+physics_layer_0/collision_layer = 1
+terrain_set_0/mode = 0
+
+[node name="Mountain1" type="Node2D"]
+
+[node name="CameraController" type="Node2D" parent="."]
+position = Vector2(1068, -1079)
+script = ExtResource("1_jkhjn")
+
+[node name="Camera2D" type="Camera2D" parent="CameraController"]
+position = Vector2(-5, -55)
+zoom = Vector2(0.7, 0.7)
+limit_left = -360
+limit_top = -1395
+limit_right = 1735
+limit_bottom = 85
+
+[node name="Player" parent="." instance=ExtResource("2_3koya")]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_tu8xm")
+
+[node name="TileMap" type="TileMap" parent="."]
+format = 2

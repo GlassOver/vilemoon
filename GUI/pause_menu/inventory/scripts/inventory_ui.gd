@@ -46,8 +46,8 @@ func update_inventory(i : int = 0) -> void:
 		new_slot.focus_entered.connect(item_focused)
 		
 	var e_slots : Array[SlotData] = data.equipment_slots()
-	inventory_slot_curiass.set_slot_data(e_slots[13])
-	inventory_slot_weapon.set_slot_data(e_slots[25])
+	inventory_slot_curiass.set_slot_data(e_slots[0])
+	inventory_slot_weapon.set_slot_data(e_slots[7])
 		
 	await get_tree().process_frame
 

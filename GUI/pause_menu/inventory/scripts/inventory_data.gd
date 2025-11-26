@@ -17,6 +17,8 @@ func inventory_slots() -> Array[SlotData]:
 
 func equipment_slots() -> Array[SlotData]:
 	return slots.slice(-equipment_slot_count, slots.size())
+	
+
 
 	
 	
@@ -91,4 +93,13 @@ func item_from_save(save_object : Dictionary) -> SlotData:
 	new_slot.item_data = load(save_object.item)
 	new_slot.quantity = int(save_object.quantity)
 	return new_slot
+	
+func equip_item(slot : SlotData) -> void:
+	if slot == null:
+		return
+		
+	var item : ItemData = slot.item_data 
+	var slot_index : int = slots.find(slot)
+	var item_index
+	pass
 	

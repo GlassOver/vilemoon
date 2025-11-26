@@ -17,7 +17,7 @@ signal player_damaged(hurt_box: HurtBox)
 @export var move_speed := 500.0
 @export var jump_move_speed := 400.0
 @export var dodgeTimer := 0.0
-@export var dodgeTime := 1.2
+@export var dodgeTime := 1.0
 @export var attackTimer := 0.0
 @export var attackCooldown := 0.3
 @export var slideTimer := 0.0
