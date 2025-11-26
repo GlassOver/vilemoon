@@ -1,4 +1,4 @@
-class_name EquipableItemData extends EquipmentData
+class_name EquipableItemData extends ItemData
 
 enum Type { WEAPON, ARMOR, CURIASS, 
 RIGHTGAUNTLET, LEFTGAUNTLET, UNDERARMOR, LEGGINGS, BOOTS, CHARMS, RING }

@@ -1,6 +1,5 @@
-[gd_resource type="Resource" script_class="EquipableItemData" load_steps=6 format=3 uid="uid://cc8us145thkf7"]
+[gd_resource type="Resource" script_class="EquipableItemData" load_steps=5 format=3 uid="uid://cc8us145thkf7"]
 
-[ext_resource type="Script" uid="uid://bdk3i4hgmsw6b" path="res://items/item_effects/item_effect.gd" id="1_au7gl"]
 [ext_resource type="Script" uid="uid://b1dqebuji43vm" path="res://GUI/pause_menu/equipment/scripts/equippable_item_modifier.gd" id="2_jnouq"]
 [ext_resource type="Script" uid="uid://cgj8xaa0065wy" path="res://GUI/pause_menu/equipment/scripts/equippable_item_data.gd" id="3_s1bsv"]
 

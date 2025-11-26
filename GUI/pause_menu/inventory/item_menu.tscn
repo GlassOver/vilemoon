@@ -77,6 +77,60 @@ layout_mode = 2
 [node name="InventorySlot6" parent="Control/PanelContainer/GridContainer" instance=ExtResource("1_f4oge")]
 layout_mode = 2
 
+[node name="PanelContainer3" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 21.0
+offset_top = 193.0
+offset_right = 282.0
+offset_bottom = 277.0
+grow_horizontal = 2
+
+[node name="GridContainer" type="GridContainer" parent="Control/PanelContainer3"]
+layout_mode = 2
+columns = 6
+
+[node name="InventorySlot_Curiass" parent="Control/PanelContainer3/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
+[node name="InventorySlot2_LeftGaunt" parent="Control/PanelContainer3/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
+[node name="InventorySlot3_RightGaunt" parent="Control/PanelContainer3/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
+[node name="InventorySlot4_UnderArmor" parent="Control/PanelContainer3/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
+[node name="InventorySlot5_Leggings" parent="Control/PanelContainer3/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
+[node name="InventorySlot6_Boots" parent="Control/PanelContainer3/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
+[node name="InventorySlot7_Charm1" parent="Control/PanelContainer3/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
+[node name="InventorySlot8_Charm2" parent="Control/PanelContainer3/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
+[node name="InventorySlot9_Charm3" parent="Control/PanelContainer3/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
+[node name="InventorySlot10_Ring1" parent="Control/PanelContainer3/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
+[node name="InventorySlot11_Ring2" parent="Control/PanelContainer3/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
+[node name="InventorySlot12_Ring3" parent="Control/PanelContainer3/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
+[node name="InventorySlot13_Weapon" parent="Control/PanelContainer3/GridContainer" instance=ExtResource("1_f4oge")]
+layout_mode = 2
+
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = 4
