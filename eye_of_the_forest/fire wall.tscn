@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://crorq665alpjv"]
+
+[ext_resource type="Script" uid="uid://rp6kcxn3aohk" path="res://eye_of_the_forest/scripts/fire_wall.gd" id="1_lx87r"]
+[ext_resource type="Material" uid="uid://bw4u86tojwrtx" path="res://eye_of_the_forest/shaders and materials/light_material.tres" id="2_fl4hw"]
+[ext_resource type="PackedScene" uid="uid://bfdpeocn58hen" path="res://player/healthbar/hurtbox/hurt_box.tscn" id="2_iq7s8"]
+
+[sub_resource type="Gradient" id="Gradient_fl4hw"]
+offsets = PackedFloat32Array(0, 0.14084508, 0.38497654, 0.96713614)
+colors = PackedColorArray(0.45587373, 0.030064916, 0.12085775, 1, 1, 0.86766374, 0.513153, 1, 1, 0.3764706, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_aop0k"]
+gradient = SubResource("Gradient_fl4hw")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0s73h"]
+radius = 38.0
+
+[node name="FireWall" type="Node2D"]
+script = ExtResource("1_lx87r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+material = ExtResource("2_fl4hw")
+texture = SubResource("GradientTexture2D_aop0k")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="HurtBox" parent="." instance=ExtResource("2_iq7s8")]
+damage = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_0s73h")

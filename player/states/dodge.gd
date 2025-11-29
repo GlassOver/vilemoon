@@ -8,6 +8,7 @@ class_name PlayerStateDodge extends PlayerState
 @export var grounded_vertical_speed_k: float = 2.5
 @export var horizontal_momentum_keep: float = 0.75
 @export var horizontal_momentum_decay: float = 0.90
+@export var effect_delay : float = 0.005
 
 var vertical_h_momentum: float = 0.0
 var vertical_dodge: bool = false
@@ -17,6 +18,7 @@ var _dodge_dir: float = 0.0
 var dodgeLength: float = 0.1
 var dodgeDuration: float = 0
 var k: float = 2.0
+var effect_timer : float = 0
 
 
 func enter() -> void:
@@ -45,11 +47,20 @@ func enter() -> void:
 		_dodge_dir = sign(player.direction.x)
 	else:
 		_dodge_dir = 1.0 if player.facing_right else -1.0
+	effect_timer = 0
+
+
+func process(_delta: float) -> PlayerState:
+	effect_timer -= _delta
+	if effect_timer < 0: 
+		effect_timer = effect_delay
+		spawn_effect()
+	return nextState
 
 
 func physics_process(delta):
 	dodgeDuration -= delta
-	
+
 	if player.isSliding == true:
 		exit()
 
@@ -88,3 +99,19 @@ func exit() -> void:
 	started_in_air = false
 	vertical_h_momentum = 0.0
 	_dodge_dir = 0.0
+	
+	
+func spawn_effect() -> void:
+	var effect : Node2D = Node2D.new()
+	player.get_parent().add_child(effect)
+	effect.global_position = player.global_position - Vector2(0,0.1)
+	effect.modulate = Color(1.5, 0.2, 1.25, 0.25)
+	
+	var sprite_copy : AnimatedSprite2D = player.sprite.duplicate()
+	effect.add_child(sprite_copy)
+	
+	var tween : Tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(effect, "modulate", Color(1,1,1,0), 0.2)
+	tween.chain().tween_callback(effect.queue_free)
+	pass

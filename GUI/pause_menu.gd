@@ -6,6 +6,7 @@ extends CanvasLayer
 
 signal shown
 signal hidden
+signal preview_stats_changed(item : ItemData)
 
 var is_open := false
 
@@ -60,3 +61,6 @@ func _on_load_pressed() -> void:
 
 	# Hide pause menu but KEEP the game scene alive
 	visible = false
+	
+func preview_stats(item : ItemData) -> void:
+	preview_stats_changed.emit(item)

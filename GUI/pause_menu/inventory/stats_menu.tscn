@@ -137,6 +137,13 @@ theme_override_font_sizes/font_size = 10
 text = "100"
 horizontal_alignment = 2
 
+[node name="HP_changed" type="Label" parent="Control/Stats/HpCont"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 2
+
 [node name="HpCont2" type="HBoxContainer" parent="Control/Stats"]
 custom_minimum_size = Vector2(0, 0.35)
 offset_left = 345.0
@@ -158,6 +165,13 @@ layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
 theme_override_font_sizes/font_size = 10
 text = "100"
+horizontal_alignment = 2
+
+[node name="SP_changed" type="Label" parent="Control/Stats/HpCont2"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
 horizontal_alignment = 2
 
 [node name="LvlCont" type="HBoxContainer" parent="Control/Stats"]
@@ -209,6 +223,21 @@ theme_override_font_sizes/font_size = 10
 text = "1"
 horizontal_alignment = 2
 
+[node name="STR_changed" type="Label" parent="Control/Stats/StatsCont/HBoxContainer3"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8352941, 0.54509807, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 2
+
+[node name="str_total" type="Label" parent="Control/Stats/StatsCont/HBoxContainer3"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 2
+
 [node name="HBoxContainer4" type="HBoxContainer" parent="Control/Stats/StatsCont"]
 custom_minimum_size = Vector2(0, 0.35)
 layout_mode = 2
@@ -227,6 +256,21 @@ layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
 theme_override_font_sizes/font_size = 10
 text = "1"
+horizontal_alignment = 2
+
+[node name="DEF_changed" type="Label" parent="Control/Stats/StatsCont/HBoxContainer4"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8352941, 0.54509807, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 2
+
+[node name="def_total" type="Label" parent="Control/Stats/StatsCont/HBoxContainer4"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
 horizontal_alignment = 2
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="Control/Stats/StatsCont"]
@@ -249,6 +293,21 @@ theme_override_font_sizes/font_size = 10
 text = "1"
 horizontal_alignment = 2
 
+[node name="SPD_changed" type="Label" parent="Control/Stats/StatsCont/HBoxContainer5"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8352941, 0.54509807, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 2
+
+[node name="spd_total" type="Label" parent="Control/Stats/StatsCont/HBoxContainer5"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 2
+
 [node name="HBoxContainer6" type="HBoxContainer" parent="Control/Stats/StatsCont"]
 custom_minimum_size = Vector2(0, 0.35)
 layout_mode = 2
@@ -269,6 +328,21 @@ theme_override_font_sizes/font_size = 10
 text = "1"
 horizontal_alignment = 2
 
+[node name="SPI_changed" type="Label" parent="Control/Stats/StatsCont/HBoxContainer6"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8352941, 0.54509807, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 2
+
+[node name="spi_total" type="Label" parent="Control/Stats/StatsCont/HBoxContainer6"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 2
+
 [node name="HBoxContainer7" type="HBoxContainer" parent="Control/Stats/StatsCont"]
 custom_minimum_size = Vector2(0, 0.35)
 layout_mode = 2
@@ -287,4 +361,19 @@ layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
 theme_override_font_sizes/font_size = 10
 text = "1"
+horizontal_alignment = 2
+
+[node name="WIL_changed" type="Label" parent="Control/Stats/StatsCont/HBoxContainer7"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8352941, 0.54509807, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 2
+
+[node name="wil_total" type="Label" parent="Control/Stats/StatsCont/HBoxContainer7"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.2)
+theme_override_font_sizes/font_size = 10
 horizontal_alignment = 2

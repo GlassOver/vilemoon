@@ -2,12 +2,13 @@ class_name PlayerStateCrouch extends PlayerState
 
 @export var slide_cooldown : float = 1.0  
 @export var deceleration_rate : float = 4
+@export var effect_delay : float = 0.005
 var k := 1.7
 
 var slideDuration = 0
 var slideTimer = 0.01
 var slide_cooldown_timer : float = 0.0  
-
+var effect_timer : float = 0
 
  
    
@@ -25,6 +26,7 @@ func enter() -> void:
 	player.collision_crouch.disabled = false
 	player.isSliding = true
 	slideDuration = slideTimer
+	effect_timer = 0
 	pass
 
 
@@ -45,6 +47,11 @@ func handleInput(_event : InputEvent) -> PlayerState:
 
 
 func process(_delta: float) -> PlayerState:
+	effect_timer -= _delta
+	if effect_timer < 0: 
+		effect_timer = effect_delay
+		spawn_effect()
+		
 	slideDuration -= _delta
 	
 	if player.isDodging == true:
@@ -65,3 +72,20 @@ func physics_process(_delta: float) -> PlayerState:
 
 	player.velocity.x -= player.velocity.x * deceleration_rate * _delta
 	return nextState
+	
+	
+
+func spawn_effect() -> void:
+	var effect : Node2D = Node2D.new()
+	player.get_parent().add_child(effect)
+	effect.global_position = player.global_position - Vector2(0,0.1)
+	effect.modulate = Color(1.5, 0.2, 1.25, 0.25)
+	
+	var sprite_copy : AnimatedSprite2D = player.sprite.duplicate()
+	effect.add_child(sprite_copy)
+	
+	var tween : Tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(effect, "modulate", Color(1,1,1,0), 0.2)
+	tween.chain().tween_callback(effect.queue_free)
+	pass

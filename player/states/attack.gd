@@ -2,6 +2,8 @@ class_name PlayerStateAttack extends PlayerState
 
 #@onready var animation_player : AnimationPlayer = $".../.../AnimationPlayer"
 @onready var sword_collider: CollisionShape2D = %Sword_Collider
+@onready var sword_collider_up: CollisionShape2D = %Sword_Collider2
+
 @export_range(1,20,0.5) var decelerate_speed : float = 1.01
 
 var attacking : bool = false
@@ -13,7 +15,11 @@ var tempAttackTimer : float = 0.05
 func enter() -> void:
 	#player.UpdateAnimation("attack")
 	#animation_player.animation_finished.connect(EndAttack)
-	%Sword_Collider.disabled = false
+	if not Input.is_action_pressed("up"):
+		%Sword_Collider.disabled = false
+	else:
+		%Sword_Collider2.disabled = false
+	
 	attacking = true
 	tempAttackTime = tempAttackTimer
 	
@@ -21,9 +27,11 @@ func enter() -> void:
 
 func exit() -> void:
 	#animation_player.animation_finished.disconnect(EndAttack)
+	%Sword_Collider.disabled = true
+	%Sword_Collider2.disabled = true
 	attacking = false
 	player.attackTimer = player.attackCooldown
-	%Sword_Collider.disabled = true
+	
 
 	pass
 

@@ -34,7 +34,7 @@ colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
 gradient = SubResource("Gradient_vswm2")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wwfkb"]
-size = Vector2(46, 71)
+size = Vector2(46, 62)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n8fnr"]
 size = Vector2(54.5, 41)
@@ -68,7 +68,7 @@ drops = Array[ExtResource("7_lvhkj")]([SubResource("Resource_t1krp"), SubResourc
 
 [node name="Chase" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("vision_area", "attack_area", "next_state")]
 script = ExtResource("10_egddf")
-chase_speed = 500.0
+chase_speed = 400.0
 vision_area = NodePath("../../VisionArea")
 attack_area = NodePath("../../HurtBox")
 state_aggro_duration = 2.0
@@ -80,7 +80,7 @@ scale = Vector2(0.17578125, 38)
 texture = SubResource("GradientTexture1D_byu67")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 16.5)
+position = Vector2(1, 12)
 shape = SubResource("RectangleShape2D_wwfkb")
 
 [node name="HurtBox" parent="." instance=ExtResource("10_cu2p6")]

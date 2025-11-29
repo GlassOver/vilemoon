@@ -2,7 +2,9 @@ class_name InventoryData extends Resource
 
 signal equipment_changed
 
+
 @export var slots : Array[SlotData]
+var menu := ItemMenu.new()
 var equipment_slot_count : int = 13
 
 func _init() -> void:
@@ -94,12 +96,77 @@ func item_from_save(save_object : Dictionary) -> SlotData:
 	new_slot.quantity = int(save_object.quantity)
 	return new_slot
 	
+	
 func equip_item(slot : SlotData) -> void:
-	if slot == null:
+	if slot == null or not slot.item_data is EquipableItemData:
 		return
 		
-	var item : ItemData = slot.item_data 
+	var item : EquipableItemData = slot.item_data 
 	var slot_index : int = slots.find(slot)
-	var item_index
+	var equipment_index : int = slots.size() - equipment_slot_count
+	
+	match item.type:
+		EquipableItemData.Type.CURIASS:
+			equipment_index += 0
+			
+		EquipableItemData.Type.UNDERARMOR:
+			equipment_index += 1	
+			
+		EquipableItemData.Type.LEFTGAUNTLET:
+			equipment_index += 2
+			
+		EquipableItemData.Type.RIGHTGAUNTLET:
+			equipment_index += 3
+			
+		EquipableItemData.Type.LEGGINGS:
+			equipment_index += 4
+			
+		EquipableItemData.Type.BOOTS:
+			equipment_index += 5
+			
+		EquipableItemData.Type.WEAPON:
+			equipment_index += 6	
+					
+		EquipableItemData.Type.CHARMS:
+			equipment_index += 7
+			
+		EquipableItemData.Type.RING:
+			equipment_index += 8
+			
+	var unequipped_slot : SlotData = slots[equipment_index]
+	
+	slots[slot_index] = unequipped_slot
+	slots[equipment_index] = slot
+	
+	equipment_changed.emit()
 	pass
+	
+func get_attack_bonus() -> int:
+	
+	return get_equipment_bonus(EquipableItemModifier.Type.ATTACK) #return bonus
+
+func get_defense_bonus() -> int:
+	
+	return get_equipment_bonus(EquipableItemModifier.Type.DEFENSE)
+	
+	
+func get_equipment_bonus(bonus_type : EquipableItemModifier.Type) -> int:
+	var bonus : int = 0
+	
+	for s in equipment_slots():
+		if s == null:
+			continue
+		var e : EquipableItemData = s.item_data
+		for m in e.modifiers:
+			if m.type == bonus_type:
+				bonus += m.value
+	
+	return bonus
+	
+	
+	
+	
+	
+	
+	
 	

@@ -9,7 +9,6 @@ signal player_damaged(hurt_box: HurtBox)
 @onready var one_way_platform_raycast: RayCast2D = %OneWayPlatformRaycast
 @onready var ledge_left: RayCast2D = %LedgeLeft
 @onready var hit_box: HitBox = $HitBox
-@onready var hp_label: Label = $CanvasLayer/HP
 
 #endregion
 
@@ -17,7 +16,7 @@ signal player_damaged(hurt_box: HurtBox)
 @export var move_speed := 500.0
 @export var jump_move_speed := 400.0
 @export var dodgeTimer := 0.0
-@export var dodgeTime := 1.0
+@export var dodgeTime := 0.7
 @export var attackTimer := 0.0
 @export var attackCooldown := 0.3
 @export var slideTimer := 0.0
@@ -36,7 +35,7 @@ var lvl : int = 1
 var xp : int = 0
 
 var min_health := 0
-var health := 100
+var health := 100 
 var max_value := 100
 
 var sp : int = 100
@@ -46,9 +45,17 @@ var str : int = 10 :
 		str = v
 		update_damage_values()
 var def : int = 10
+var def_bonus : int = 0
 var spi : int = 10
 var wil : int = 10
 var spd : int = 10
+
+var buff_multiplier : float = 1.2
+var debuff_multiplier : float = 1.2
+var bd_time : float = 25
+var bd_timer : float = 0
+var bd_freeze_time : float = 3
+var bd_freeze_timer : float = 0
 
 
 
@@ -78,6 +85,7 @@ func _ready() -> void:
 	update_hp(9999)
 	update_damage_values()
 	PlayerManager.player_leveled_up.connect(update_damage_values)
+	PlayerManager.INVENTORY_DATA.equipment_changed.connect(_on_equipment_changed)
 	#healthbar.init_health(max_value)
 #	player_damaged.connect(PlayerState._ready)
 	
@@ -96,7 +104,6 @@ func _process(delta: float) -> void:
 	
 
 func _physics_process(delta: float) -> void:
-	hp_label.text = str(health)
 	velocity.y += gravity * delta * gravity_multiplier
 	move_and_slide()
 	changeState(currentState.physics_process(delta))
@@ -150,9 +157,11 @@ func _take_damage(hurt_box : HurtBox) -> void:
 		var dmg : float = hurt_box.damage
 		
 		if dmg > 0:
-			dmg = clampi(dmg - def, 1, dmg)
+			dmg = clampi(dmg - def - def_bonus, 1, dmg)
+			
 		
 		update_hp(-dmg)
+		EffectManager.damage_text(health, global_position + Vector2(0,-36))
 		player_damaged.emit(hurt_box)
 		
 	else:
@@ -179,7 +188,13 @@ func make_invulnerable(_duration : float = 1.0) -> void:
 	
 	
 func update_damage_values() -> void:
-	$HurtBox.damage = str 
+	var damage_value : int = str + PlayerManager.INVENTORY_DATA.get_attack_bonus()
+	$HurtBox.damage = damage_value
 	
 	
 	pass
+	
+	
+func _on_equipment_changed() -> void:
+	update_damage_values()
+	def_bonus = PlayerManager.INVENTORY_DATA.get_defense_bonus()

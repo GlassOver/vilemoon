@@ -131,6 +131,13 @@ shape = SubResource("CircleShape2D_bgi0l")
 disabled = true
 debug_color = Color(0.7749407, 0.14539094, 0.21738556, 0.41960785)
 
+[node name="Sword_Collider2" type="CollisionShape2D" parent="HurtBox"]
+unique_name_in_owner = true
+position = Vector2(-1, -167)
+shape = SubResource("CircleShape2D_bgi0l")
+disabled = true
+debug_color = Color(0.7749407, 0.14539094, 0.21738556, 0.41960785)
+
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 264
 collision_mask = 256
@@ -162,11 +169,3 @@ target_position = Vector2(0, -11.999998)
 collision_mask = 4
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="HP" type="Label" parent="CanvasLayer"]
-offset_left = 11.0
-offset_top = 7.0
-offset_right = 71.0
-offset_bottom = 56.0
-theme_override_font_sizes/font_size = 32

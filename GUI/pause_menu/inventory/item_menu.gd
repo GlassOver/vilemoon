@@ -1,4 +1,4 @@
-extends CanvasLayer
+class_name ItemMenu extends CanvasLayer
 
 @onready var button_save: Button = $Control/VBoxContainer/Button_Save
 @onready var button_load: Button = $Control/VBoxContainer/Button_Load
@@ -22,6 +22,8 @@ func _ready() -> void:
 	button_load.pressed.connect(_on_load_pressed)
 	button_stats.pressed.connect(_on_stats_pressed)
 
+	
+
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
 		_close_item_menu()
@@ -41,6 +43,21 @@ func update_item_name (new_text : String) -> void:
 	
 func update_item_quality (new_text : String) -> void:
 	item_quality.text = new_text
+	
+
+func focused_item_changed(slot : SlotData) -> void:
+	if slot:
+		if slot.item_data:
+			update_item_description(slot.item_data.description)
+			update_item_name(slot.item_data.name)
+			PauseMenu.preview_stats(slot.item_data)
+	else:
+		update_item_description("")
+		update_item_name("")
+		PauseMenu.preview_stats(slot.item_data)
+
+		#Update stats
+	
 	
 func play_sound(audio: AudioStream) -> void:
 	audio_stream_player.stream = audio

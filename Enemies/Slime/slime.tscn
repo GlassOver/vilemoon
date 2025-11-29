@@ -40,7 +40,7 @@ size = Vector2(54.5, 41)
 [node name="Slime" type="CharacterBody2D"]
 collision_layer = 256
 script = ExtResource("1_byu67")
-xp_reward = 300
+xp_reward = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1.0000002, 0)
