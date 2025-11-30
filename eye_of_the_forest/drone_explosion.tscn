@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://qn05kl1jnsis"]
+[gd_scene load_steps=5 format=3 uid="uid://cnh1ei0tw7sh7"]
 
-[ext_resource type="Texture2D" uid="uid://c2mqk4byfxi0x" path="res://eye_of_the_forest/sprites/exp2.png" id="1_tul2d"]
+[ext_resource type="Texture2D" uid="uid://c2mqk4byfxi0x" path="res://eye_of_the_forest/sprites/exp2.png" id="1_6oafo"]
 
 [sub_resource type="Animation" id="Animation_vrs1j"]
 length = 0.001
@@ -56,9 +56,9 @@ _data = {
 
 [node name="EnergyExplosion" type="Sprite2D"]
 z_index = 1
-position = Vector2(-0.5000305, 1.9999695)
-scale = Vector2(20.203123, 16.312498)
-texture = ExtResource("1_tul2d")
+position = Vector2(1, 4.7683716e-07)
+scale = Vector2(3.5, 2.889)
+texture = ExtResource("1_6oafo")
 hframes = 4
 vframes = 4
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bf5tqkwm0y2l3"]
+[gd_scene load_steps=23 format=3 uid="uid://bf5tqkwm0y2l3"]
 
 [ext_resource type="Script" uid="uid://bee6ytpl3yau7" path="res://player/player.gd" id="1_vvscm"]
 [ext_resource type="Texture2D" uid="uid://cgncg7ayaqlsb" path="res://player/Playerstandin.png" id="2_j185d"]
@@ -52,6 +52,10 @@ radius = 79.00633
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j185d"]
 radius = 19.0
 height = 74.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7jnpu"]
+radius = 17.0
+height = 34.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dpq8s"]
 radius = 98.02041
@@ -147,6 +151,17 @@ metadata/_custom_type_script = "uid://d133nvuuiegwk"
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(0, -32)
 shape = SubResource("CapsuleShape2D_j185d")
+debug_color = Color(0.9310799, 0.91179985, 0.6339296, 0.41960785)
+
+[node name="CrouchHitBox" type="Area2D" parent="."]
+collision_layer = 264
+collision_mask = 256
+script = ExtResource("13_p6wgc")
+metadata/_custom_type_script = "uid://d133nvuuiegwk"
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="CrouchHitBox"]
+position = Vector2(0, -15)
+shape = SubResource("CapsuleShape2D_7jnpu")
 debug_color = Color(0.9310799, 0.91179985, 0.6339296, 0.41960785)
 
 [node name="ItemMagnet" parent="." instance=ExtResource("15_7jnpu")]

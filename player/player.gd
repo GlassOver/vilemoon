@@ -9,6 +9,7 @@ signal player_damaged(hurt_box: HurtBox)
 @onready var one_way_platform_raycast: RayCast2D = %OneWayPlatformRaycast
 @onready var ledge_left: RayCast2D = %LedgeLeft
 @onready var hit_box: HitBox = $HitBox
+@onready var crouch_hit_box: HitBox = $CrouchHitBox
 
 #endregion
 
@@ -22,6 +23,7 @@ signal player_damaged(hurt_box: HurtBox)
 @export var slideTimer := 0.0
 @export var slideTime := 0.3
 @export var stopMoving := 0
+
 
 @export var facing_right := true
 @export var isAttacking := false
@@ -82,6 +84,7 @@ func _ready() -> void:
 	slideTimer = slideTime
 	attackTimer = attackCooldown
 	hit_box.Damaged.connect(_take_damage)
+	crouch_hit_box.Damaged.connect(_take_damage)
 	update_hp(9999)
 	update_damage_values()
 	PlayerManager.player_leveled_up.connect(update_damage_values)

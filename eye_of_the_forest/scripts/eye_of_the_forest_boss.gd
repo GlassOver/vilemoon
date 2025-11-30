@@ -4,6 +4,11 @@ const ENERGY_EXPLOSION_SCENE : PackedScene = preload("res://eye_of_the_forest/en
 const SLASH_SCENE: PackedScene = preload("res://eye_of_the_forest/realslash.tscn")
 const FIRE_STREAM_SCENE: PackedScene = preload("res://eye_of_the_forest/Slash.tscn")
 const FIRE_BALL_SCENE: PackedScene = preload("res://eye_of_the_forest/fire wall.tscn")
+const FLAME_WALL_SCENE: PackedScene = preload("res://eye_of_the_forest/flamewall.tscn")
+const DRONE_SCENE: PackedScene = preload("res://eye_of_the_forest/drone.tscn")
+const ATTACK_DRONE_SCENE: PackedScene = preload("res://Enemies/Goblin/goblin.tscn")
+const FLAMETHROWER_SCENE: PackedScene = preload("res://eye_of_the_forest/flamethrower.tscn")
+const SUPERFLAMETHROWER_SCENE: PackedScene = preload("res://eye_of_the_forest/superflamethrower.tscn")
 
 
 @export var max_hp : int = 500
@@ -19,26 +24,54 @@ var Stream_Attacks : Array[SlashAttack]
 @onready var persistent_data_handler: PersistentDataHandler = $PersistentDataHandler
 @onready var hurt_box: HurtBox = $BossNode/HurtBox
 @onready var hit_box: HitBox = $BossNode/HitBox
+
+#region /// Positions
 @onready var pos1: Sprite2D = $PositionTargets/Sprite2D
 @onready var pos2: Sprite2D = $PositionTargets/Sprite2D2
 @onready var pos3: Sprite2D = $PositionTargets/Sprite2D3
 @onready var pos4: Sprite2D = $PositionTargets/Sprite2D4
+@onready var pos5: Sprite2D = $PositionTargets/Sprite2D5
+@onready var dronepos1: Sprite2D = $PositionTargets/Sprite2D6
+@onready var dronepos2: Sprite2D = $PositionTargets/Sprite2D7
+@onready var flamethrower1: Sprite2D = $PositionTargets/Sprite2D8
+@onready var flamethrower2: Sprite2D = $PositionTargets/Sprite2D9
+@onready var flamethrower3: Sprite2D = $PositionTargets/Sprite2D10
+@onready var flamethrower4: Sprite2D = $PositionTargets/Sprite2D11
+#endregion
 
 
+#region /// Mega Flame Thrower Positions
+###Left to Right
+@onready var mftp: Sprite2D = $"PositionTargets/MFT Left to Right/MFTP"
+@onready var mftp_2: Sprite2D = $"PositionTargets/MFT Left to Right/MFTP2"
+@onready var mftp_3: Sprite2D = $"PositionTargets/MFT Left to Right/MFTP3"
+@onready var mftp_4: Sprite2D = $"PositionTargets/MFT Left to Right/MFTP4"
+@onready var mftp_5: Sprite2D = $"PositionTargets/MFT Left to Right/MFTP5"
+@onready var mftp_6: Sprite2D = $"PositionTargets/MFT Left to Right/MFTP6"
+@onready var mftp_7: Sprite2D = $"PositionTargets/MFT Left to Right/MFTP7"
+@onready var mftp_8: Sprite2D = $"PositionTargets/MFT Left to Right/MFTP8"
+@onready var mftp_9: Sprite2D = $"PositionTargets/MFT Left to Right/MFTP9"
+@onready var mftp_10: Sprite2D = $"PositionTargets/MFT Left to Right/MFTP10"
+@onready var mftp_11: Sprite2D = $"PositionTargets/MFT Left to Right/MFTP11"
+###Right to Left
+@onready var mftpr_11: Sprite2D = $"PositionTargets/MFT Right to Left/MFTP"
+@onready var mftpr_10: Sprite2D = $"PositionTargets/MFT Right to Left/MFTP2"
+@onready var mftpr_9: Sprite2D = $"PositionTargets/MFT Right to Left/MFTP3"
+@onready var mftpr_8: Sprite2D = $"PositionTargets/MFT Right to Left/MFTP4"
+@onready var mftpr_7: Sprite2D = $"PositionTargets/MFT Right to Left/MFTP5"
+@onready var mftpr_6: Sprite2D = $"PositionTargets/MFT Right to Left/MFTP6"
+@onready var mftpr_5: Sprite2D = $"PositionTargets/MFT Right to Left/MFTP7"
+@onready var mftpr_4: Sprite2D = $"PositionTargets/MFT Right to Left/MFTP8"
+@onready var mftpr_3: Sprite2D = $"PositionTargets/MFT Right to Left/MFTP9"
+@onready var mftpr_2: Sprite2D = $"PositionTargets/MFT Right to Left/MFTP10"
+@onready var mftpr: Sprite2D = $"PositionTargets/MFT Right to Left/MFTP11"
+#endregion
 
 func _ready() -> void:
 	hp = max_hp
 	
 	hit_box.Damaged.connect(damage_taken)
-	
-	for c in $PositionTargets.get_children(): 
-		positions.append(c.global_position)
-	print(positions)
-	$PositionTargets.visible = false
-	
-	for b in $StreamAttacks.get_children():
-		Stream_Attacks.append(b)
-	
+
 	
 	
 func idle() -> void:
@@ -51,10 +84,16 @@ func idle() -> void:
 	#await animation_player.animation_finished
 	
 	#create an attack pattern somehow?
-	shoot_slash()
-	fire_wall()
-	fire_stream()
-	
+#	shoot_slash()
+#	fire_wall()
+#	fire_stream()
+#	flame_wall()
+#	drone_strike()
+#	reinforcements()
+#	flamethrower()
+#	sflamethrower_left()
+#	sflamethrower_right()
+	final_attack()
 	pass
 	
 
@@ -64,6 +103,7 @@ func update_animations() -> void:
 	pass
 
 
+#region Attacks
 func shoot_slash() -> void:
 	var eb : Node2D = SLASH_SCENE.instantiate()
 	eb.global_position = boss_node.global_position + Vector2(0, -34)
@@ -86,6 +126,184 @@ func fire_stream() -> void:
 	var fs : Node2D = FIRE_STREAM_SCENE.instantiate()
 	fs.global_position = pos4.global_position
 	get_parent().add_child.call_deferred(fs)
+	
+func flame_wall() -> void:
+	var flw : Node2D = FLAME_WALL_SCENE.instantiate()
+	flw.global_position = pos5.global_position
+	get_parent().add_child.call_deferred(flw)
+	
+func drone_strike() -> void:
+	var d : Node2D = DRONE_SCENE.instantiate()
+	d.global_position = dronepos1.global_position
+	get_parent().add_child.call_deferred(d)
+	var d2 : Node2D = DRONE_SCENE.instantiate()
+	d2.global_position = dronepos2.global_position
+	get_parent().add_child.call_deferred(d2)
+	
+func reinforcements() -> void:
+	var re : Node2D = ATTACK_DRONE_SCENE.instantiate()
+	re.global_position = dronepos1.global_position
+	get_parent().add_child.call_deferred(re)
+	var re2 : Node2D = ATTACK_DRONE_SCENE.instantiate()
+	re2.global_position = dronepos2.global_position
+	get_parent().add_child.call_deferred(re2)
+	
+func flamethrower() -> void:
+	var ft : Node2D = FLAMETHROWER_SCENE.instantiate()
+	ft.global_position = flamethrower1.global_position
+	get_parent().add_child.call_deferred(ft)
+	var ft2 : Node2D = FLAMETHROWER_SCENE.instantiate()
+	ft2.global_position = flamethrower2.global_position
+	get_parent().add_child.call_deferred(ft2)
+	var ft3 : Node2D = FLAMETHROWER_SCENE.instantiate()
+	ft3.global_position = flamethrower3.global_position
+	get_parent().add_child.call_deferred(ft3)
+	var ft4 : Node2D = FLAMETHROWER_SCENE.instantiate()
+	ft4.global_position = flamethrower4.global_position
+	get_parent().add_child.call_deferred(ft4)
+
+
+func sflamethrower_left() -> void:
+	var sftl : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl.global_position = mftp.global_position
+	get_parent().add_child.call_deferred(sftl)
+	await get_tree().create_timer(0.1).timeout 
+	var sftl2 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl2.global_position = mftp_2.global_position
+	get_parent().add_child.call_deferred(sftl2)
+	await get_tree().create_timer(0.1).timeout 
+	var sftl3 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl3.global_position = mftp_3.global_position
+	get_parent().add_child.call_deferred(sftl3)
+	await get_tree().create_timer(0.1).timeout 
+	var sftl4 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl4.global_position = mftp_4.global_position
+	get_parent().add_child.call_deferred(sftl4)
+	await get_tree().create_timer(0.1).timeout 
+	var sftl5 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl5.global_position = mftp_5.global_position
+	get_parent().add_child.call_deferred(sftl5)
+	await get_tree().create_timer(0.1).timeout 
+	var sftl6 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl6.global_position = mftp_6.global_position
+	get_parent().add_child.call_deferred(sftl6)
+	await get_tree().create_timer(0.1).timeout 
+	var sftl7 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl7.global_position = mftp_7.global_position
+	get_parent().add_child.call_deferred(sftl7)
+	await get_tree().create_timer(0.1).timeout 	
+	var sftl8 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl8.global_position = mftp_8.global_position
+	get_parent().add_child.call_deferred(sftl8)
+	await get_tree().create_timer(0.1).timeout 
+	var sftl9 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl9.global_position = mftp_9.global_position
+	get_parent().add_child.call_deferred(sftl9)
+	await get_tree().create_timer(0.1).timeout 
+	var sftl10 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl10.global_position = mftp_10.global_position
+	get_parent().add_child.call_deferred(sftl10)
+	await get_tree().create_timer(0.1).timeout 
+	var sftl11 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl11.global_position = mftp_11.global_position
+	get_parent().add_child.call_deferred(sftl11)
+	
+	
+func sflamethrower_right() -> void:
+	var sftl : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl.global_position = mftpr.global_position
+	get_parent().add_child.call_deferred(sftl)
+	await get_tree().create_timer(0.1).timeout 
+	var sftl2 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl2.global_position = mftpr_2.global_position
+	get_parent().add_child.call_deferred(sftl2)
+	await get_tree().create_timer(0.1).timeout 
+	var sftl3 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl3.global_position = mftpr_3.global_position
+	get_parent().add_child.call_deferred(sftl3)
+	await get_tree().create_timer(0.1).timeout 
+	var sftl4 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl4.global_position = mftpr_4.global_position
+	get_parent().add_child.call_deferred(sftl4)
+	await get_tree().create_timer(0.1).timeout 
+	var sftl5 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl5.global_position = mftpr_5.global_position
+	get_parent().add_child.call_deferred(sftl5)
+	await get_tree().create_timer(0.1).timeout 
+	var sftl6 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl6.global_position = mftpr_6.global_position
+	get_parent().add_child.call_deferred(sftl6)
+	await get_tree().create_timer(0.1).timeout 
+	var sftl7 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl7.global_position = mftpr_7.global_position
+	get_parent().add_child.call_deferred(sftl7)
+	await get_tree().create_timer(0.1).timeout 	
+	var sftl8 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl8.global_position = mftpr_8.global_position
+	get_parent().add_child.call_deferred(sftl8)
+	await get_tree().create_timer(0.1).timeout 
+	var sftl9 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl9.global_position = mftpr_9.global_position
+	get_parent().add_child.call_deferred(sftl9)
+	await get_tree().create_timer(0.1).timeout 
+	var sftl10 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl10.global_position = mftpr_10.global_position
+	get_parent().add_child.call_deferred(sftl10)
+	await get_tree().create_timer(0.1).timeout 
+	var sftl11 : Node2D = SUPERFLAMETHROWER_SCENE.instantiate()
+	sftl11.global_position = mftpr_11.global_position
+	get_parent().add_child.call_deferred(sftl11)
+#endregion
+
+#region Final Attack
+func final_attack() -> void:
+	sflamethrower_right()
+	await get_tree().create_timer(2).timeout 
+	sflamethrower_left()
+	await get_tree().create_timer(2.5).timeout 
+	shoot_slash()
+	await get_tree().create_timer(0.3).timeout 
+	shoot_slash()
+	await get_tree().create_timer(0.8).timeout 
+	fire_wall()
+	await get_tree().create_timer(0.9).timeout 
+	fire_stream()
+	await get_tree().create_timer(0.2).timeout
+	flamethrower() 
+	await get_tree().create_timer(0.8).timeout 
+	shoot_slash()
+	await get_tree().create_timer(0.3).timeout 
+	shoot_slash()
+	await get_tree().create_timer(2.7).timeout 
+	flame_wall()
+	await get_tree().create_timer(1.8).timeout 
+	drone_strike()
+	await get_tree().create_timer(1).timeout
+	drone_strike()
+	await get_tree().create_timer(1).timeout
+	sflamethrower_left()
+	await get_tree().create_timer(2).timeout 
+	sflamethrower_right()
+	await get_tree().create_timer(1.2).timeout
+	flame_wall()
+	await get_tree().create_timer(1).timeout
+	drone_strike()
+	await get_tree().create_timer(1).timeout
+	drone_strike()
+	await get_tree().create_timer(1.8).timeout
+	drone_strike()
+	await get_tree().create_timer(2.5).timeout
+	drone_strike()
+	await get_tree().create_timer(4).timeout
+	drone_strike()
+	await get_tree().create_timer(7).timeout
+	drone_strike()
+	await get_tree().create_timer(10).timeout
+	drone_strike()
+#endregion
+
+
+
 
 func damage_taken(_hurt_box : HurtBox) -> void:
 		#if animation_player_damaged.current_animation == "damaged" or _hurt_box.damage == 0:
@@ -122,6 +340,7 @@ func explosion(_p : Vector2 = Vector2.ZERO) -> void:
 	var e : Node2D = ENERGY_EXPLOSION_SCENE.instantiate()
 	e.global_position = boss_node.global_position + _p
 	get_parent().add_child.call_deferred(e)
+	queue_free()
 	#call this in defeat animation later
 	pass
 	

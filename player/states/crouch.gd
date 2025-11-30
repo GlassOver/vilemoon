@@ -24,6 +24,8 @@ func enter() -> void:
 		exit()
 	player.collision_stand.disabled = true
 	player.collision_crouch.disabled = false
+	player.hit_box.monitorable = false
+	player.crouch_hit_box.monitorable = true
 	player.isSliding = true
 	slideDuration = slideTimer
 	effect_timer = 0
@@ -35,6 +37,8 @@ func exit() -> void:
 	player.slideTimer = player.slideTime
 	player.collision_stand.disabled = false
 	player.collision_crouch.disabled = true
+	player.hit_box.monitorable = true
+	player.crouch_hit_box.monitorable = false
 	player.isSliding = false
 	
 	pass

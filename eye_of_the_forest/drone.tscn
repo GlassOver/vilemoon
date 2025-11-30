@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://c7rbw7ux18wk6"]
+
+[ext_resource type="Script" uid="uid://djtiynkn1oiqu" path="res://eye_of_the_forest/drone.gd" id="1_rrou6"]
+[ext_resource type="Material" uid="uid://bw4u86tojwrtx" path="res://eye_of_the_forest/shaders and materials/light_material.tres" id="2_4wje8"]
+[ext_resource type="PackedScene" uid="uid://bfdpeocn58hen" path="res://player/healthbar/hurtbox/hurt_box.tscn" id="3_kji80"]
+
+[sub_resource type="Gradient" id="Gradient_4wje8"]
+colors = PackedColorArray(0.8122784, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kji80"]
+gradient = SubResource("Gradient_4wje8")
+fill_from = Vector2(1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0s73h"]
+radius = 38.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rrou6"]
+radius = 64.12488
+
+[node name="Drone" type="Node2D"]
+script = ExtResource("1_rrou6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+material = ExtResource("2_4wje8")
+position = Vector2(0, 4.7683716e-07)
+scale = Vector2(1, 0.59375)
+texture = SubResource("GradientTexture2D_kji80")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="HurtBox" parent="." instance=ExtResource("3_kji80")]
+collision_mask = 9
+damage = 13
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_0s73h")
+
+[node name="ExplosionHurtBox" parent="." instance=ExtResource("3_kji80")]
+collision_mask = 9
+damage = 43
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionHurtBox"]
+shape = SubResource("CircleShape2D_rrou6")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 25)

@@ -1,0 +1,96 @@
+[gd_scene load_steps=10 format=3 uid="uid://c2aovlv03kas7"]
+
+[ext_resource type="Script" uid="uid://vwm84c10gpa5" path="res://eye_of_the_forest/flamewall.gd" id="1_cafvk"]
+[ext_resource type="Texture2D" uid="uid://b35j55pye7j6q" path="res://eye_of_the_forest/sprites/New Piskel (7).png" id="2_3nkec"]
+[ext_resource type="Script" uid="uid://dsyg2x11ho0us" path="res://eye_of_the_forest/sprite_2d.gd" id="3_gilsn"]
+[ext_resource type="Script" uid="uid://dyo7pc6md02iv" path="res://player/healthbar/hurtbox/hurt_box.gd" id="5_h1n4g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gsohk"]
+size = Vector2(2475, 393)
+
+[sub_resource type="Animation" id="Animation_gsohk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HurtBox:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_tn5ly"]
+resource_name = "attack"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HurtBox:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+
+[sub_resource type="Animation" id="Animation_tkt1t"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HurtBox:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tn5ly"]
+_data = {
+&"RESET": SubResource("Animation_gsohk"),
+&"attack": SubResource("Animation_tn5ly"),
+&"default": SubResource("Animation_tkt1t")
+}
+
+[node name="FlameWall" type="Node2D"]
+position = Vector2(3, -245)
+script = ExtResource("1_cafvk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(-153.00009, 14.500008)
+scale = Vector2(4.968, 6.6718755)
+texture = ExtResource("2_3nkec")
+region_enabled = true
+region_rect = Rect2(1, 0, 500, 64)
+script = ExtResource("3_gilsn")
+
+[node name="HurtBox" type="Area2D" parent="."]
+position = Vector2(-5, 125)
+collision_layer = 0
+collision_mask = 8
+monitoring = false
+monitorable = false
+script = ExtResource("5_h1n4g")
+damage = 23
+metadata/_custom_type_script = "uid://dyo7pc6md02iv"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(-148.5, -125.49997)
+shape = SubResource("RectangleShape2D_gsohk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_tn5ly")
+}
+autoplay = "attack"
