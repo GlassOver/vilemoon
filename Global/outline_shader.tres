@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cdrunyk4ig568"]
+
+[ext_resource type="Shader" uid="uid://b3dxyim4fd2j7" path="res://Global/outline_shader.gdshader" id="1_betuf"]
+
+[resource]
+shader = ExtResource("1_betuf")
+shader_parameter/outline_color = Color(0.4117647, 1, 0.5647059, 1)
+shader_parameter/outline_thickness = 5.0

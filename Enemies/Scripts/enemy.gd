@@ -8,6 +8,8 @@ const DIR_4 = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
 
 @export var hp : int = 30
 @export var xp_reward : int = 1
+@export var avoider : bool = false
+@export var attacker : bool = false
 
 var cardinal_direction : Vector2 = Vector2.DOWN
 var direction : Vector2 = Vector2.ZERO

@@ -101,7 +101,7 @@ func update_stats() -> void:
 	str_changed.text = "+" + str(PlayerManager.INVENTORY_DATA.get_attack_bonus())
 	def_changed.text = "+" + str(PlayerManager.INVENTORY_DATA.get_defense_bonus())
 	str_total.text = str(_p.str + PlayerManager.INVENTORY_DATA.get_attack_bonus())
-	def_total.text = str(_p.str + PlayerManager.INVENTORY_DATA.get_defense_bonus())
+	def_total.text = str(_p.def + PlayerManager.INVENTORY_DATA.get_defense_bonus())
 
 func _on_preview_stats_changed(item: ItemData) -> void:
 	#Equipment System 3 30:00

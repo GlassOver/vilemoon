@@ -41,6 +41,7 @@ var health := 100
 var max_value := 100
 
 var sp : int = 100
+var currentsp = sp
 @warning_ignore("shadowed_global_identifier")
 var str : int = 10 :
 	set(v):
@@ -52,14 +53,45 @@ var spi : int = 10
 var wil : int = 10
 var spd : int = 10
 
-var buff_multiplier : float = 1.2
+var buff_multiplier : float = 1.3
 var debuff_multiplier : float = 1.2
 var bd_time : float = 25
 var bd_timer : float = 0
-var bd_freeze_time : float = 3
+var bd_freeze_time : float = 5
 var bd_freeze_timer : float = 0
+var buffed : float = 0
+var d_buffed : float = 0
+var maxbuff : float = 3
 
+var str_buff_value = 0
+var buff_1 : float = 0
+var buff_2 : float = 0
 
+var def_buff_value = 0
+var d_buff_1 : float = 0
+var d_buff_2 : float = 0
+
+var canMove : bool = true
+
+#When you press LB your player will begin casting.
+#You will freeze for two seconds, and if you are uninterrupted
+#And you didn't just cast, and your buffed variable is less than 3 
+#The buff code runs. 
+#Once the buff code runs it will start a duration timer
+#In this duratiion timer code it adds +1 to your buffed variable
+
+#if input.is_action_just_pressed() & bd_freeze_time <=0 & buffed != maxbuff
+#Await 2 seconds
+#run buff
+
+#in buff:
+#increases player str
+#increases the buffed count by 1
+#starts the duration timer
+#in process there will be a function that says
+#if duration <= 0 & buffed >= 1
+#run unbuff
+#unbuff will simply subtract 1 from buffed
 
 #endregion
 
@@ -83,6 +115,8 @@ func _ready() -> void:
 	dodgeTimer = dodgeTime
 	slideTimer = slideTime
 	attackTimer = attackCooldown
+	bd_freeze_timer = bd_freeze_time
+	bd_timer = bd_time
 	hit_box.Damaged.connect(_take_damage)
 	crouch_hit_box.Damaged.connect(_take_damage)
 	update_hp(9999)
@@ -92,7 +126,12 @@ func _ready() -> void:
 	#healthbar.init_health(max_value)
 #	player_damaged.connect(PlayerState._ready)
 	
-	
+func getOriginalStr() -> void:
+	if buffed == 0:
+		str_buff_value = str
+	if d_buffed == 0:
+		def_buff_value = def
+
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -100,13 +139,127 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	update_direction()
+	getOriginalStr()
 	changeState(currentState.process(delta))
 	dodgeTimer -= delta
 	slideTimer -= delta
 	attackTimer-= delta
+	bd_freeze_timer -= delta
+	bd_timer -= delta
 	
+	
+	if Input.is_action_just_pressed("left_magic") and bd_freeze_timer <= 0 and buffed < 3 and currentsp >= 12:
+		bd_freeze_timer = bd_freeze_time
+		canMove = false
+		await get_tree().create_timer(2).timeout 
+		canMove = true
+		buffed += 1
+		currentsp -= 12
+		buff()
+	if bd_timer <= 0 and buffed >= 1:
+		unbuff()
+		
+	if Input.is_action_just_pressed("right_magic") and bd_freeze_timer <= 0 and d_buffed < 3 and currentsp >= 12:
+		bd_freeze_timer = bd_freeze_time
+		canMove = false
+		await get_tree().create_timer(2).timeout 
+		canMove = true
+		d_buffed += 1
+		currentsp -= 12
+		d_buff()
+	if bd_timer <= 0 and d_buffed >= 1:
+		d_unbuff()
+		
+
+#region ### Defense Buff	
+func d_buff() -> void:
+	if d_buffed == 1:
+		@warning_ignore("narrowing_conversion")
+		def = def*buff_multiplier
+		bd_timer = bd_time
+		d_buff_1 = def
+		
+	if d_buffed == 2:
+		@warning_ignore("narrowing_conversion")
+		def = def*buff_multiplier
+		bd_timer = bd_time
+		d_buff_2 = def
+		
+	if d_buffed == 3:
+		@warning_ignore("narrowing_conversion")
+		def = def*buff_multiplier
+		bd_timer = bd_time
+		
+		
+		
+func d_unbuff() -> void:
+	if d_buffed == 1:
+		d_buffed -= 1
+		@warning_ignore("narrowing_conversion")
+		def = def_buff_value
+
+		
+	if d_buffed == 2:
+		d_buffed -= 1
+		@warning_ignore("narrowing_conversion")
+		def = d_buff_1
+
+	if d_buffed == 3:
+		d_buffed -= 1
+		@warning_ignore("narrowing_conversion")
+		def = d_buff_2
+
+#endregion	
+
+#region ###Strength Buff
+func buff() -> void:
+	if buffed == 1:
+		@warning_ignore("narrowing_conversion")
+		str = str*buff_multiplier
+		bd_timer = bd_time
+		buff_1 = str
+		
+		print("buff 1")
+	if buffed == 2:
+		@warning_ignore("narrowing_conversion")
+		str = str*buff_multiplier
+		bd_timer = bd_time
+		buff_2 = str
+		print("buffed 2")
+		
+	if buffed == 3:
+		@warning_ignore("narrowing_conversion")
+		str = str*buff_multiplier
+		bd_timer = bd_time
+		print("buffed 3")
+#unfreeze movement.
+
+func unbuff() -> void:
+	if buffed == 1:
+		buffed -= 1
+		@warning_ignore("narrowing_conversion")
+		str = str_buff_value
+		print("debuff 1")
+		print(currentsp)
+		
+	if buffed == 2:
+		buffed -= 1
+		@warning_ignore("narrowing_conversion")
+		str = buff_1
+		print("debuff 2")
+
+	if buffed == 3:
+		buffed -= 1
+		@warning_ignore("narrowing_conversion")
+		str = buff_2
+		print("debuff 3")
+#endregion
 
 func _physics_process(delta: float) -> void:
+	if not canMove:
+		velocity = Vector2.ZERO
+		return
+
 	velocity.y += gravity * delta * gravity_multiplier
 	move_and_slide()
 	changeState(currentState.physics_process(delta))
@@ -160,9 +313,11 @@ func _take_damage(hurt_box : HurtBox) -> void:
 		var dmg : float = hurt_box.damage
 		
 		if dmg > 0:
+			@warning_ignore("narrowing_conversion")
 			dmg = clampi(dmg - def - def_bonus, 1, dmg)
 			
 		
+		@warning_ignore("narrowing_conversion")
 		update_hp(-dmg)
 		EffectManager.damage_text(health, global_position + Vector2(0,-36))
 		player_damaged.emit(hurt_box)

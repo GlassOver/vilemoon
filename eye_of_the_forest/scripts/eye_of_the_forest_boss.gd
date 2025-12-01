@@ -11,14 +11,13 @@ const FLAMETHROWER_SCENE: PackedScene = preload("res://eye_of_the_forest/flameth
 const SUPERFLAMETHROWER_SCENE: PackedScene = preload("res://eye_of_the_forest/superflamethrower.tscn")
 
 
-@export var max_hp : int = 500
+@export var max_hp : int = 1000
 var hp : int = 10
 #var audio_hurt : AudioStream = preload()
 #var audio_shoot : AudioStream = preload()
 
-var current_position : int = 0
-var positions : Array[Vector2]
-var Stream_Attacks : Array[SlashAttack]
+
+
 
 @onready var boss_node: Node2D = $BossNode
 @onready var persistent_data_handler: PersistentDataHandler = $PersistentDataHandler
@@ -67,13 +66,140 @@ var Stream_Attacks : Array[SlashAttack]
 @onready var mftpr: Sprite2D = $"PositionTargets/MFT Right to Left/MFTP11"
 #endregion
 
+var direction : Vector2
+var attack_cooldown : float = 3.5
+var attack_cooldown_timer : float = 0
+var isAttacking : bool = false
+
+enum BossState { IDLE, CHOOSING_ATTACK, ATTACKING }
+
+var state: BossState = BossState.IDLE
+var current_attack: Callable
+
+
 func _ready() -> void:
 	hp = max_hp
-	
 	hit_box.Damaged.connect(damage_taken)
+	attack_cooldown_timer = attack_cooldown
+	
+	
+func _process(delta: float) -> void:
+	attack_cooldown_timer -= delta
+	if state == BossState.IDLE and attack_cooldown_timer <= 0:
+		choose_attack()
 
-	
-	
+
+func choose_attack() -> void:
+	var distance = (PlayerManager.player.global_position - boss_node.global_position).length()
+
+	var attack_pool = []
+
+	# Close-range pool
+	if distance < 320:
+		attack_pool.append_array([
+			["flamethrower_right", 3], # weighted 3
+			["flame_run", 3],
+			["shoot_slash", 1],
+			["drone_strike", 2],
+		])
+
+	# Mid-range
+	elif distance > 319:
+		attack_pool.append_array([
+			["fire_stream", 1],
+			["flame_combo", 3],
+			["static_firestream", 2],
+			["shoot_slash", 2],
+			["flamethrower", 1],
+			["flamethrower_left", 2],
+			["flamethrower_right", 1]
+		])
+		
+	elif distance > 400:
+		attack_pool.append_array([
+			["flamethrower_left", 3],
+			["flamethrower_left", 3],
+			["mobility_test", 2],
+			["flame_run", 3],
+			["call_reinforcements", 1],
+			["flame_wall", 1],
+			["shoot_slash", 1],
+		])
+
+	# Long range aerial punish
+		if not PlayerManager.player.is_on_floor():
+			attack_pool.append_array([
+				["shoot_slash", 3],
+				["fire_wall", 2],
+				["flame_combo", 2],
+				["drone_strike", 1 ],
+			])
+
+	if attack_pool.is_empty():
+		return
+
+	var selected = pick_weighted(attack_pool)
+	run_attack(selected)
+
+
+func pick_weighted(pool: Array) -> String:
+	var total_weight = 0
+	for item in pool:
+		total_weight += item[1]
+
+	var roll = randi() % total_weight
+	var cumulative = 0
+
+	for item in pool:
+		cumulative += item[1]
+		if roll < cumulative:
+			return item[0]
+
+	return pool[0][0]
+
+
+
+func run_attack(attack_name: String) -> void:
+	state = BossState.ATTACKING
+	attack_cooldown_timer = attack_cooldown
+
+	match attack_name:
+		"flame_combo":
+			await do_attack(flame_combo, 0.3)
+		"flame_run":
+			await do_attack(flame_run, 0.3)
+		"call_reinforcements":
+			await do_attack(call_reinforcements, 0.3)
+		"static_firestream":
+			await do_attack(static_firestream, 0.1)
+		"mobility_test":
+			await do_attack(mobility_test, 0.3)
+		"flame_wall":
+			await do_attack(flame_wall, 0.3)
+		"flamethrower_left":
+			await do_attack(sflamethrower_left, 0.3)
+		"drone_strike":
+			await do_attack(drone_strike, 0.3)
+		"flamethrower":
+			await do_attack(flamethrower, 0.3)
+		"flamethrower_right":
+			await do_attack(sflamethrower_right, 0.3)
+		"fire_stream":
+			await do_attack(fire_stream, 0.3)
+		"fire_wall":
+			await do_attack(fire_wall, 0.3)
+		"shoot_slash":
+			await do_attack(shoot_slash, 0.1)
+
+func do_attack(func_ref: Callable, duration: float) -> void:
+	func_ref.call()
+	await get_tree().create_timer(duration).timeout
+	state = BossState.IDLE
+
+
+
+		
+		
 func idle() -> void:
 	print("idle")
 	enable_hit_boxes()
@@ -83,20 +209,8 @@ func idle() -> void:
 	#animation_player.play("idle")
 	#await animation_player.animation_finished
 	
-	#create an attack pattern somehow?
-#	shoot_slash()
-#	fire_wall()
-#	fire_stream()
-#	flame_wall()
-#	drone_strike()
-#	reinforcements()
-#	flamethrower()
-#	sflamethrower_left()
-#	sflamethrower_right()
-	final_attack()
 	pass
 	
-
 	
 func update_animations() -> void:
 
@@ -255,6 +369,47 @@ func sflamethrower_right() -> void:
 	get_parent().add_child.call_deferred(sftl11)
 #endregion
 
+
+func flame_combo() -> void:
+	fire_stream()
+	await get_tree().create_timer(1.3).timeout
+	fire_wall()
+	await get_tree().create_timer(1).timeout
+	flame_wall()
+	
+func flame_run() -> void:
+	sflamethrower_right()
+	await get_tree().create_timer(2).timeout
+	sflamethrower_left()
+	
+func call_reinforcements() -> void:
+	reinforcements()
+	await get_tree().create_timer(2).timeout
+	reinforcements()
+	await get_tree().create_timer(5).timeout
+	
+func static_firestream() -> void:
+	flamethrower()
+	await get_tree().create_timer(1).timeout
+	fire_stream()
+	
+func slash_flamethrower() -> void:
+	flamethrower()
+	await get_tree().create_timer(0.3).timeout
+	shoot_slash()
+	await get_tree().create_timer(0.3).timeout
+	shoot_slash()
+
+func mobility_test() -> void:
+	fire_wall()
+	await get_tree().create_timer(0.8).timeout
+	fire_stream()
+	await get_tree().create_timer(1).timeout
+	fire_wall()
+	await get_tree().create_timer(1.3).timeout
+	drone_strike()
+	
+
 #region Final Attack
 func final_attack() -> void:
 	sflamethrower_right()
@@ -303,8 +458,6 @@ func final_attack() -> void:
 #endregion
 
 
-
-
 func damage_taken(_hurt_box : HurtBox) -> void:
 		#if animation_player_damaged.current_animation == "damaged" or _hurt_box.damage == 0:
 			#return
@@ -316,8 +469,7 @@ func damage_taken(_hurt_box : HurtBox) -> void:
 		#animation_player_damaged.queue("default")
 		if hp < 1:
 			defeat()
-		else: idle()
-		pass
+		
 	
 #func play_audio(_a : AudioStream) -> void:
 	#audio.stream = _a

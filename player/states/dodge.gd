@@ -72,6 +72,7 @@ func physics_process(delta):
 		player.velocity.x = vertical_h_momentum
 
 		if dodgeDuration <= 0:
+			@warning_ignore("incompatible_ternary")
 			return fall if started_in_air else idle
 
 		return nextState

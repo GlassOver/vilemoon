@@ -1,0 +1,294 @@
+[gd_scene load_steps=19 format=3 uid="uid://d4noldapu8eo5"]
+
+[ext_resource type="Script" uid="uid://c46xvg1wjdwrs" path="res://eye_of_the_forest/scripts/eye_of_the_forest_boss.gd" id="1_nobdy"]
+[ext_resource type="Script" uid="uid://dyo7pc6md02iv" path="res://player/healthbar/hurtbox/hurt_box.gd" id="2_anc58"]
+[ext_resource type="Script" uid="uid://cplshn8ye5jfc" path="res://eye_of_the_forest/finite_state_machine.gd" id="2_pp3wb"]
+[ext_resource type="Script" uid="uid://cnmciem6dsskl" path="res://eye_of_the_forest/idle.gd" id="3_s33iu"]
+[ext_resource type="Script" uid="uid://d133nvuuiegwk" path="res://player/healthbar/hitbox/hitbox.gd" id="3_ul0d4"]
+[ext_resource type="Script" uid="uid://cjiuwloyhdx1t" path="res://eye_of_the_forest/scripts/state.gd" id="4_0ofu7"]
+[ext_resource type="Script" uid="uid://jcr3ehbmfnam" path="res://Global/persistent_data_handler.gd" id="4_pp3wb"]
+
+[sub_resource type="Gradient" id="Gradient_46036"]
+offsets = PackedFloat32Array(0.5377358, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_s33iu"]
+gradient = SubResource("Gradient_46036")
+width = 351
+height = 24
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_0rg8l"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0ofu7"]
+gradient = SubResource("Gradient_0rg8l")
+
+[sub_resource type="Gradient" id="Gradient_maq6b"]
+offsets = PackedFloat32Array(0, 0.9622642)
+colors = PackedColorArray(1, 0.06087041, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fo8xt"]
+gradient = SubResource("Gradient_maq6b")
+width = 400
+height = 400
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a47le"]
+size = Vector2(325, 381)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bb757"]
+radius = 209.11719
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fo8xt"]
+radius = 1417.4614
+
+[sub_resource type="Gradient" id="Gradient_p5284"]
+offsets = PackedFloat32Array(0.6650943, 0.8537736, 1)
+colors = PackedColorArray(1, 1, 1, 0, 0.3372549, 0.7176471, 0.59607846, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uq53f"]
+gradient = SubResource("Gradient_p5284")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="EyeOfTheForest" type="Node2D"]
+script = ExtResource("1_nobdy")
+
+[node name="BossNode" type="Node2D" parent="."]
+position = Vector2(1429, -560)
+
+[node name="FiniteStateMachine" type="Node2D" parent="BossNode"]
+position = Vector2(-1429, 560)
+script = ExtResource("2_pp3wb")
+
+[node name="idle" type="Node2D" parent="BossNode/FiniteStateMachine"]
+script = ExtResource("3_s33iu")
+
+[node name="slash" type="Node2D" parent="BossNode/FiniteStateMachine"]
+script = ExtResource("4_0ofu7")
+
+[node name="fire wall" type="Node2D" parent="BossNode/FiniteStateMachine"]
+script = ExtResource("4_0ofu7")
+
+[node name="fire stream" type="Node2D" parent="BossNode/FiniteStateMachine"]
+script = ExtResource("4_0ofu7")
+
+[node name="flame wall" type="Node2D" parent="BossNode/FiniteStateMachine"]
+script = ExtResource("4_0ofu7")
+
+[node name="drone strike" type="Node2D" parent="BossNode/FiniteStateMachine"]
+script = ExtResource("4_0ofu7")
+
+[node name="reinforcements" type="Node2D" parent="BossNode/FiniteStateMachine"]
+script = ExtResource("4_0ofu7")
+
+[node name="flamethrower" type="Node2D" parent="BossNode/FiniteStateMachine"]
+script = ExtResource("4_0ofu7")
+
+[node name="s_flamethrower left" type="Node2D" parent="BossNode/FiniteStateMachine"]
+script = ExtResource("4_0ofu7")
+
+[node name="s_flamethrower right" type="Node2D" parent="BossNode/FiniteStateMachine"]
+script = ExtResource("4_0ofu7")
+
+[node name="final attack" type="Node2D" parent="BossNode/FiniteStateMachine"]
+script = ExtResource("4_0ofu7")
+
+[node name="death" type="Node2D" parent="BossNode/FiniteStateMachine"]
+script = ExtResource("4_0ofu7")
+
+[node name="ShadowSprite" type="Sprite2D" parent="BossNode"]
+position = Vector2(2, 191.5)
+texture = SubResource("GradientTexture2D_s33iu")
+
+[node name="CloakSprite" type="Sprite2D" parent="BossNode"]
+z_index = -1
+position = Vector2(0, -1.7848206)
+scale = Vector2(5.2945447, 6.084849)
+texture = SubResource("GradientTexture2D_0ofu7")
+
+[node name="PointLight2D" type="PointLight2D" parent="BossNode"]
+position = Vector2(-129.99997, -69.000015)
+scale = Vector2(1.4099998, 1.2475001)
+energy = 6.34
+texture = SubResource("GradientTexture2D_fo8xt")
+
+[node name="HurtBox" type="Area2D" parent="BossNode"]
+position = Vector2(69, 145.5)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("2_anc58")
+damage = 20
+metadata/_custom_type_script = "uid://dyo7pc6md02iv"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BossNode/HurtBox"]
+position = Vector2(-68.5, -146.5)
+shape = SubResource("RectangleShape2D_a47le")
+
+[node name="HitBox" type="Area2D" parent="BossNode"]
+position = Vector2(69, 145.5)
+collision_layer = 256
+collision_mask = 256
+script = ExtResource("3_ul0d4")
+metadata/_custom_type_script = "uid://d133nvuuiegwk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossNode/HitBox"]
+position = Vector2(-56, -172)
+scale = Vector2(1, 1.12)
+shape = SubResource("CircleShape2D_bb757")
+
+[node name="Area2D" type="Area2D" parent="BossNode"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossNode/Area2D"]
+shape = SubResource("CircleShape2D_fo8xt")
+
+[node name="PositionTargets" type="Node2D" parent="."]
+position = Vector2(-309, -2)
+
+[node name="Sprite2D" type="Sprite2D" parent="PositionTargets"]
+position = Vector2(1516, -777)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="Sprite2D2" type="Sprite2D" parent="PositionTargets"]
+position = Vector2(1515, -620)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="Sprite2D3" type="Sprite2D" parent="PositionTargets"]
+position = Vector2(1515, -464)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="Sprite2D4" type="Sprite2D" parent="PositionTargets"]
+position = Vector2(1933, -396)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="Sprite2D5" type="Sprite2D" parent="PositionTargets"]
+position = Vector2(1933, -607)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="Sprite2D6" type="Sprite2D" parent="PositionTargets"]
+position = Vector2(1223, -719)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="Sprite2D7" type="Sprite2D" parent="PositionTargets"]
+position = Vector2(1009, -641)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="Sprite2D8" type="Sprite2D" parent="PositionTargets"]
+position = Vector2(1074, -588)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="Sprite2D9" type="Sprite2D" parent="PositionTargets"]
+position = Vector2(1295, -588)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="Sprite2D10" type="Sprite2D" parent="PositionTargets"]
+position = Vector2(1496, -588)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="Sprite2D11" type="Sprite2D" parent="PositionTargets"]
+position = Vector2(854, -588)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFT Left to Right" type="Node" parent="PositionTargets"]
+
+[node name="MFTP" type="Sprite2D" parent="PositionTargets/MFT Left to Right"]
+position = Vector2(545, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP2" type="Sprite2D" parent="PositionTargets/MFT Left to Right"]
+position = Vector2(605, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP3" type="Sprite2D" parent="PositionTargets/MFT Left to Right"]
+position = Vector2(664, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP4" type="Sprite2D" parent="PositionTargets/MFT Left to Right"]
+position = Vector2(725, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP5" type="Sprite2D" parent="PositionTargets/MFT Left to Right"]
+position = Vector2(785, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP6" type="Sprite2D" parent="PositionTargets/MFT Left to Right"]
+position = Vector2(844, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP7" type="Sprite2D" parent="PositionTargets/MFT Left to Right"]
+position = Vector2(900, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP8" type="Sprite2D" parent="PositionTargets/MFT Left to Right"]
+position = Vector2(960, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP9" type="Sprite2D" parent="PositionTargets/MFT Left to Right"]
+position = Vector2(1019, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP10" type="Sprite2D" parent="PositionTargets/MFT Left to Right"]
+position = Vector2(1080, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP11" type="Sprite2D" parent="PositionTargets/MFT Left to Right"]
+position = Vector2(1140, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFT Right to Left" type="Node" parent="PositionTargets"]
+
+[node name="MFTP" type="Sprite2D" parent="PositionTargets/MFT Right to Left"]
+position = Vector2(644, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP2" type="Sprite2D" parent="PositionTargets/MFT Right to Left"]
+position = Vector2(704, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP3" type="Sprite2D" parent="PositionTargets/MFT Right to Left"]
+position = Vector2(763, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP4" type="Sprite2D" parent="PositionTargets/MFT Right to Left"]
+position = Vector2(824, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP5" type="Sprite2D" parent="PositionTargets/MFT Right to Left"]
+position = Vector2(884, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP6" type="Sprite2D" parent="PositionTargets/MFT Right to Left"]
+position = Vector2(943, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP7" type="Sprite2D" parent="PositionTargets/MFT Right to Left"]
+position = Vector2(999, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP8" type="Sprite2D" parent="PositionTargets/MFT Right to Left"]
+position = Vector2(1059, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP9" type="Sprite2D" parent="PositionTargets/MFT Right to Left"]
+position = Vector2(1118, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP10" type="Sprite2D" parent="PositionTargets/MFT Right to Left"]
+position = Vector2(1179, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="MFTP11" type="Sprite2D" parent="PositionTargets/MFT Right to Left"]
+position = Vector2(1239, -590)
+texture = SubResource("GradientTexture2D_uq53f")
+
+[node name="PersistentDataHandler" type="Node" parent="."]
+script = ExtResource("4_pp3wb")
+metadata/_custom_type_script = "uid://jcr3ehbmfnam"

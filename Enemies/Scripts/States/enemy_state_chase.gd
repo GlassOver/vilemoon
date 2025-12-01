@@ -1,6 +1,8 @@
 class_name EnemyStateChase extends EnemyState
 
 const PATHFINDER : PackedScene = preload("res://Enemies/pathfinder.tscn")
+const AVOID : PackedScene = preload("res://Enemies/avoidpathfinder.tscn")
+const SLASH_SCENE: PackedScene = preload("res://eye_of_the_forest/realslash.tscn")
 
 
 @export var anim_name : String = "chase"
@@ -17,6 +19,9 @@ var _timer : float = 0.0
 var _direction : Vector2
 var _can_see_player : bool = false
 var pathfinder : Pathfinder
+var avoidfinder : AvoidPathfinder
+var attack_timer: float = 0.0
+var attack_cooldown: float = randf_range(2, 5)
 
 
 
@@ -27,9 +32,15 @@ func init() -> void:
 
 # What happens when we enter this state?
 func enter() -> void:
-	pathfinder = PATHFINDER.instantiate() as Pathfinder
-	enemy.add_child(pathfinder)
-	
+	if enemy.avoider == false:
+		pathfinder = PATHFINDER.instantiate() as Pathfinder
+		enemy.add_child(pathfinder)
+	elif enemy.avoider == true:
+		avoidfinder = AVOID.instantiate() as AvoidPathfinder
+		enemy.add_child(avoidfinder)
+	if enemy.attacker == true:
+		attack_timer = attack_cooldown
+		
 	_timer = state_aggro_duration
 	#enemy.update_animation(anim_name)
 	if attack_area:
@@ -39,7 +50,11 @@ func enter() -> void:
 
 # What happens when we exit this state?
 func exit() -> void:
-	pathfinder.queue_free()
+	if enemy.avoider == false:
+		pathfinder.queue_free()
+	elif enemy.avoider == true:
+		avoidfinder.queue_free()
+		
 	if attack_area:
 		attack_area.monitoring = false
 	_can_see_player = false
@@ -48,13 +63,18 @@ func exit() -> void:
 
 # What happens each process tick in this state?
 func process(_delta: float) -> EnemyState:
+	attack_timer -= _delta
+
+	if enemy.avoider == false:
+		_direction = lerp(_direction, pathfinder.move_dir, turn_rate)
+		enemy.velocity = _direction * chase_speed
+	elif enemy.avoider == true:
+		_direction = lerp(_direction, avoidfinder.move_dir, turn_rate)
+		enemy.velocity = _direction * chase_speed
 	
-	
-	#var new_dir : Vector2 = enemy.global_position.direction_to(PlayerManager.player.global_position)
-	#_direction = lerp(_direction, new_dir, turn_rate)
-	_direction = lerp(_direction, pathfinder.move_dir, turn_rate)
-	enemy.velocity = _direction * chase_speed
-	
+	if enemy.attacker == true and attack_timer <= 0:
+		attack()
+		
 	if enemy.set_direction(_direction):
 		#enemy.update_animation(anim_name)
 		pass
@@ -67,6 +87,12 @@ func process(_delta: float) -> EnemyState:
 		_timer = state_aggro_duration
 	return null
 	
+func attack(): 
+	attack_timer = attack_cooldown
+	var eb : Node2D = SLASH_SCENE.instantiate()
+	eb.global_position = get_parent().get_parent().global_position + Vector2(0, -34)
+	get_parent().add_child.call_deferred(eb)
+	print("Shot")
 
 # What happens each physics process tick in this state?
 func physics(_delta: float) -> EnemyState:

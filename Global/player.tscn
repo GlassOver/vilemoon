@@ -1,6 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://bf5tqkwm0y2l3"]
+[gd_scene load_steps=24 format=3 uid="uid://bf5tqkwm0y2l3"]
 
 [ext_resource type="Script" uid="uid://bee6ytpl3yau7" path="res://player/player.gd" id="1_vvscm"]
+[ext_resource type="Material" uid="uid://cdrunyk4ig568" path="res://Global/outline_shader.tres" id="2_dpq8s"]
 [ext_resource type="Texture2D" uid="uid://cgncg7ayaqlsb" path="res://player/Playerstandin.png" id="2_j185d"]
 [ext_resource type="Script" uid="uid://b8t24ljufuwrl" path="res://player/states/idle.gd" id="3_marfm"]
 [ext_resource type="Script" uid="uid://32o2xgb2wyqd" path="res://player/states/playerStates.gd" id="4_bgi0l"]
@@ -61,11 +62,12 @@ height = 34.0
 radius = 98.02041
 
 [node name="Player" type="CharacterBody2D"]
-collision_layer = 8
+collision_layer = 24
 collision_mask = 7
 script = ExtResource("1_vvscm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = ExtResource("2_dpq8s")
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_rkbax")
 animation = &"standinRun"
@@ -73,12 +75,14 @@ autoplay = "standinIdle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
+visible = false
 position = Vector2(0, -32.5)
 scale = Vector2(1.6365466, 1.8947699)
 shape = SubResource("RectangleShape2D_boad6")
 
 [node name="CollisionCrouch" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
+visible = false
 position = Vector2(0, -16)
 scale = Vector2(1.6130853, 0.8350176)
 shape = SubResource("RectangleShape2D_rgyib")
@@ -125,6 +129,7 @@ unique_name_in_owner = true
 script = ExtResource("12_p6wgc")
 
 [node name="HurtBox" parent="." instance=ExtResource("12_marfm")]
+visible = false
 collision_layer = 256
 collision_mask = 256
 
@@ -143,6 +148,7 @@ disabled = true
 debug_color = Color(0.7749407, 0.14539094, 0.21738556, 0.41960785)
 
 [node name="HitBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 264
 collision_mask = 256
 script = ExtResource("13_p6wgc")
@@ -154,6 +160,7 @@ shape = SubResource("CapsuleShape2D_j185d")
 debug_color = Color(0.9310799, 0.91179985, 0.6339296, 0.41960785)
 
 [node name="CrouchHitBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 264
 collision_mask = 256
 script = ExtResource("13_p6wgc")
@@ -165,6 +172,7 @@ shape = SubResource("CapsuleShape2D_7jnpu")
 debug_color = Color(0.9310799, 0.91179985, 0.6339296, 0.41960785)
 
 [node name="ItemMagnet" parent="." instance=ExtResource("15_7jnpu")]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemMagnet"]
 position = Vector2(0, -32)

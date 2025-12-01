@@ -2,7 +2,6 @@ extends Node2D
 
 
 @onready var camera: Camera2D = $Camera2D
-@onready var player: Node2D = $"../Player"
 @onready var ground: TileMap = $"../TileMap"
 
 
@@ -24,33 +23,33 @@ var limit_left := 0.0
 var limit_right := 0.0
 var limit_top := 0.0
 var limit_bottom := 0.0
-
+var is_player_bound := false
 
 var camera_target := Vector2.ZERO
 var deadzone_offset := Vector2.ZERO
 
 func _ready():
-	if not camera:
-		print("Camera not found")
-	else:
-		camera.make_current()  
-
-	if not player:
-		print("Player not found")
-	else:
-		position = player.global_position
-		camera_target = position
-
-	if not ground:
-		print("Ground not found")
-		return
-
 	setup_camera_limits()
 
-func _physics_process(delta):
-	if not player:
-		return
+func _check_for_player():
+	var player = PlayerManager.player
+	if player:
+		_on_player_bound()
 
+func _on_player_bound():
+	var player = PlayerManager.player
+	is_player_bound = true
+	print("Player found and bound to camera")
+	position = player.global_position
+	camera_target = position
+
+func _physics_process(delta):
+	var player := PlayerManager.player
+	
+	if not is_player_bound:
+		_check_for_player()
+		return
+	
 	var cam_pos = position
 	var player_pos = player.global_position
 	var player_vel = Vector2.ZERO
