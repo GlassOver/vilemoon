@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://vet823h56j46"]
+[gd_scene load_steps=26 format=3 uid="uid://vet823h56j46"]
 
 [ext_resource type="Script" uid="uid://bdeol3j31k8uv" path="res://Global/level.gd" id="1_satuh"]
 [ext_resource type="Texture2D" uid="uid://4fippf5e8l23" path="res://tilesets/Shittile.png" id="1_u52ul"]
@@ -8,8 +8,10 @@
 [ext_resource type="Script" uid="uid://d133nvuuiegwk" path="res://player/healthbar/hitbox/hitbox.gd" id="6_0rg8l"]
 [ext_resource type="PackedScene" uid="uid://dd0fmng7hosa1" path="res://Enemies/Goblin/goblin.tscn" id="6_n8wy4"]
 [ext_resource type="Script" uid="uid://jcr3ehbmfnam" path="res://Global/persistent_data_handler.gd" id="8_n8wy4"]
+[ext_resource type="PackedScene" uid="uid://blwkf75ho0wuj" path="res://levels/player_spawn.tscn" id="9_6w4ab"]
+[ext_resource type="PackedScene" uid="uid://cawckre04iqyt" path="res://levels/level_transition.tscn" id="10_n8wy4"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vonw3"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0rg8l"]
 texture = ExtResource("1_u52ul")
 0:0/0 = 0
 1:0/0 = 0
@@ -31,13 +33,13 @@ texture = ExtResource("1_u52ul")
 
 [sub_resource type="TileSet" id="TileSet_oi3di"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_vonw3")
+sources/0 = SubResource("TileSetAtlasSource_0rg8l")
 
-[sub_resource type="Gradient" id="Gradient_satuh"]
+[sub_resource type="Gradient" id="Gradient_5mwf5"]
 colors = PackedColorArray(1, 0.77083683, 0.33229887, 1, 0.97860056, 0.7649659, 0.19647226, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_p5284"]
-gradient = SubResource("Gradient_satuh")
+gradient = SubResource("Gradient_5mwf5")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_46036"]
 
@@ -399,3 +401,11 @@ texture = SubResource("GradientTexture2D_46036")
 [node name="PersistentDataHandler" type="Node" parent="EyeOfTheForest"]
 script = ExtResource("8_n8wy4")
 metadata/_custom_type_script = "uid://jcr3ehbmfnam"
+
+[node name="PlayerSpawn" parent="." instance=ExtResource("9_6w4ab")]
+position = Vector2(-267, -2)
+
+[node name="LevelTransition" parent="." instance=ExtResource("10_n8wy4")]
+position = Vector2(-637, -385)
+level = "uid://bhh1j8nbmv82e"
+size = 3

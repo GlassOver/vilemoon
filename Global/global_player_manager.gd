@@ -7,18 +7,20 @@ signal player_leveled_up
 
 
 var player: Player
-var player_spawned : bool = true
+var player_spawned : bool = false
 var level_requirements = [0, 100, 140, 180, 220, 260, 299, 339, 378, 417, 456]
 
 func _ready():
-	call_deferred("add_player_instance")
+	add_player_instance()
+	await get_tree().create_timer(0.2).timeout
+	player_spawned = true
 	
 	
 
 func add_player_instance():
 	player = PLAYER.instantiate()
 	get_tree().current_scene.add_child(player)
-	
+	pass
 	
 #func set_health(hp: int, max_hp: int) -> void:
 #	player.max_hp = max_hp
@@ -31,15 +33,17 @@ func set_player_position(_new_pos: Vector2):
 	pass
 	
 func set_as_parent(_p : Node2D) -> void:
-	if player and player.get_parent():
+	if player.get_parent():
 		player.get_parent().remove_child(player)
-		_p.add_child(player)
+	_p.add_child(player)
 
 	
 func unparent_player(_p : Node2D) -> void:
 	_p.remove_child(player)
 	
 	
+
+
 func reward_xp(_xp : int) -> void:
 	player.xp += _xp
 	check_for_level_advance()

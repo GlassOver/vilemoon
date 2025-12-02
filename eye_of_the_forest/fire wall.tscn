@@ -20,6 +20,7 @@ fill_to = Vector2(1, 0.5)
 radius = 38.0
 
 [node name="FireWall" type="Node2D"]
+material = ExtResource("2_fl4hw")
 script = ExtResource("1_lx87r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

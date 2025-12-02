@@ -13,16 +13,18 @@ config_version=5
 config/name="Vilemoon"
 run/main_scene="uid://vet823h56j46"
 config/features=PackedStringArray("4.5", "Forward Plus")
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [autoload]
 
-PlayerManager="*res://Global/global_player_manager.gd"
 GameManager="*res://script/game_manager.gd"
 LevelManager="*res://Global/global_level_manager.gd"
 PauseMenu="*res://GUI/pause_menu.tscn"
 SaveManager="*res://Global/global__save_manager.gd"
 EffectManager="*res://Global/global_effect_manager.gd"
+SceneTransition="*res://GUI/scene_transition/scene_transition.tscn"
+PlayerManager="*res://Global/global_player_manager.gd"
 
 [display]
 

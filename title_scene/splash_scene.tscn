@@ -1,0 +1,140 @@
+[gd_scene load_steps=8 format=3 uid="uid://8hwyg0giel2t"]
+
+[ext_resource type="Texture2D" uid="uid://dybqrjeax1kl6" path="res://title_scene/resources/New Piskel (8).png" id="1_0u2bx"]
+[ext_resource type="AudioStream" uid="uid://yot6ux76imc5" path="res://title_scene/resources/shing.wav" id="2_tlkea"]
+
+[sub_resource type="Gradient" id="Gradient_tx6mn"]
+colors = PackedColorArray(0.9137255, 0.9137255, 0.8039216, 0.33333334, 0.07153922, 0.07294216, 0.13752109, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cr2sv"]
+gradient = SubResource("Gradient_tx6mn")
+fill_from = Vector2(0, 0.0025773195)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Animation" id="Animation_3gkof"]
+length = 4.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.56078434)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4.450541),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_tlkea")
+}],
+"times": PackedFloat32Array(0.96666664)
+}
+tracks/2/use_blend = true
+
+[sub_resource type="Animation" id="Animation_mjkwe"]
+resource_name = "default"
+length = 4.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.47058824)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(-0.03333333, 4.4666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.1789,
+"start_offset": 0.0,
+"stream": ExtResource("2_tlkea")
+}],
+"times": PackedFloat32Array(0.8666667)
+}
+tracks/2/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sjp85"]
+_data = {
+&"RESET": SubResource("Animation_3gkof"),
+&"default": SubResource("Animation_mjkwe")
+}
+
+[node name="SplashScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 649.0
+offset_bottom = 374.0
+color = Color(0.01420414, 0.01420414, 0.07570875, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 652.0
+offset_bottom = 377.0
+texture = SubResource("GradientTexture2D_cr2sv")
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Control"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(304, 191)
+scale = Vector2(0.33177084, 0.33333337)
+texture = ExtResource("1_0u2bx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
+libraries = {
+&"": SubResource("AnimationLibrary_sjp85")
+}
+autoplay = "default"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Control"]
+position = Vector2(0, 2)

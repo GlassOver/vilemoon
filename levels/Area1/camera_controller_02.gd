@@ -64,7 +64,7 @@ func _physics_process(delta):
 		desired_offset_x = sign(player_vel.x) * look_ahead_distance
 
 	deadzone_offset.x = lerp(deadzone_offset.x, desired_offset_x, clamp(look_ahead_speed * delta, 0.0, 1.0))
-	deadzone_offset.y = 5  
+	deadzone_offset.y = -60 
 
 
 	var left = cam_pos.x - horizontal_dead_zone + deadzone_offset.x
