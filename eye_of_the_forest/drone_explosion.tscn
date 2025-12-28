@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnh1ei0tw7sh7"]
+[gd_scene load_steps=6 format=3 uid="uid://cnh1ei0tw7sh7"]
 
 [ext_resource type="Texture2D" uid="uid://c2mqk4byfxi0x" path="res://eye_of_the_forest/sprites/exp2.png" id="1_6oafo"]
+[ext_resource type="AudioStream" uid="uid://de2nr4ia66uru" path="res://Global/sounds/exxplosion.ogg" id="2_cvevf"]
 
 [sub_resource type="Animation" id="Animation_vrs1j"]
 length = 0.001
@@ -47,6 +48,21 @@ tracks/1/keys = {
 "method": &"queue_free"
 }]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Explosion")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_cvevf")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8u0rc"]
 _data = {
@@ -67,3 +83,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_8u0rc")
 }
 autoplay = "explode"
+
+[node name="Explosion" type="AudioStreamPlayer2D" parent="."]
+volume_db = -25.419

@@ -1,5 +1,10 @@
 class_name PlayerStateDodge extends PlayerState
 
+@onready var dodge_audio: AudioStreamPlayer2D = $"../../DodgeAudio"
+@onready var vert_dodge_audio: AudioStreamPlayer2D = $"../../VertDodgeAudio"
+
+
+
 @export var air_vertical_gravity_multiplier: float = 0.4
 @export var vertical_boost: float = 700.0
 @export var air_drag: float = 0.60
@@ -22,7 +27,7 @@ var effect_timer : float = 0
 
 
 func enter() -> void:
-	
+	dodge_audio.play()
 	player.isDodging = true
 	if player.isSliding == true:
 		exit()
@@ -32,10 +37,13 @@ func enter() -> void:
 
 	if vertical_dodge:
 		if player.is_on_floor():
+			vert_dodge_audio.play()
 			player.velocity.y = -grounded_vertical_boost
 			vertical_h_momentum = player.velocity.x * grounded_vertical_speed_k
 			player.velocity.x = vertical_h_momentum
+			
 		else:
+			vert_dodge_audio.play()
 			player.velocity.y = -vertical_boost
 			vertical_h_momentum = player.velocity.x * horizontal_momentum_keep
 			player.velocity.x = vertical_h_momentum

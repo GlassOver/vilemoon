@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="EquipableItemData" load_steps=6 format=3 uid="uid://svtg3ksud4du"]
+
+[ext_resource type="Script" uid="uid://bdk3i4hgmsw6b" path="res://items/item_effects/item_effect.gd" id="1_u8uda"]
+[ext_resource type="Script" uid="uid://b1dqebuji43vm" path="res://GUI/pause_menu/equipment/scripts/equippable_item_modifier.gd" id="2_e481i"]
+[ext_resource type="Script" uid="uid://cgj8xaa0065wy" path="res://GUI/pause_menu/equipment/scripts/equippable_item_data.gd" id="3_xwb2m"]
+
+[sub_resource type="Resource" id="Resource_au7gl"]
+script = ExtResource("2_e481i")
+type = 2
+value = 20
+metadata/_custom_type_script = "uid://b1dqebuji43vm"
+
+[sub_resource type="Resource" id="Resource_jnouq"]
+script = ExtResource("2_e481i")
+value = -30
+metadata/_custom_type_script = "uid://b1dqebuji43vm"
+
+[resource]
+script = ExtResource("3_xwb2m")
+type = 4
+modifiers = Array[ExtResource("2_e481i")]([SubResource("Resource_au7gl"), SubResource("Resource_jnouq")])
+name = "Warrior's Left Gauntlet"
+description = "I found this in a collapsed part of the Tower of Idols. Several machines had gotten trapped with it, and I had to fight through them in order to claim this ancient piece of history. I don't know who this piece of equipment belonged to, but I can tell that they cherished it. They can rest well knowing it's journey did not end with it's owner. "
+metadata/_custom_type_script = "uid://cgj8xaa0065wy"

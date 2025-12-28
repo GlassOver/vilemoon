@@ -5,7 +5,7 @@ extends Node2D
 @onready var ground: TileMap = $"../TileMap"
 
 
-@export var horizontal_dead_zone := 80.0
+@export var horizontal_dead_zone := 50.0
 @export var vertical_dead_zone := 80.0
 @export var follow_speed := 9.0  
 
@@ -40,6 +40,7 @@ func _on_player_bound():
 	var player = PlayerManager.player
 	is_player_bound = true
 	print("Player found and bound to camera")
+	print(player.global_position.x)
 	position = player.global_position
 	camera_target = position
 

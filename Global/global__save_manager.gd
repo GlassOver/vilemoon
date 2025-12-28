@@ -42,8 +42,13 @@ func save_game() -> void:
 	pass
 	
 	
+func get_save_file() -> FileAccess:
+	return FileAccess.open(SAVE_PATH + "save.sav", FileAccess.READ)
+
+	
+	
 func load_game() -> void:
-	var file := FileAccess.open(SAVE_PATH + "save.sav", FileAccess.READ)
+	var file := get_save_file()
 	var json := JSON.new()
 	json.parse(file.get_line())
 	var save_dict : Dictionary = json.get_data() as Dictionary
@@ -51,18 +56,30 @@ func load_game() -> void:
 	
 	LevelManager.load_new_level(current_save.scene_path, "", Vector2.ZERO)
 	
+	await LevelManager.level_load_started
+	
 	PlayerManager.set_player_position(Vector2(current_save.player.pos_x, current_save.player.pos_y))
 	#PlayerManager.set_health(current_save.player.hp, current_save.player.max_hp)
+	
+	
+	PlayerManager.INVENTORY_DATA.parse_save_data(current_save.items)
 	var p : Player = PlayerManager.player
 	p.max_value = current_save.player.max_value
 	p.sp = current_save.player.sp
-	p.level = current_save.player.lvl
+	p.lvl = current_save.player.lvl
 	p.xp = current_save.player.xp
 	p.str = current_save.player.str
 	p.def = current_save.player.def
 	p.spd = current_save.player.spd
 	p.spi = current_save.player.spi
 	p.wil = current_save.player.wil
+	p.update_hp(p.max_value)
+	
+	await LevelManager.level_loaded
+	
+	game_loaded.emit()
+	
+
 	
 	PlayerManager.INVENTORY_DATA.parse_save_data(current_save.items)
 	

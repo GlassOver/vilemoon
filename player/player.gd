@@ -1,6 +1,7 @@
 class_name Player extends CharacterBody2D
 
 signal player_damaged(hurt_box: HurtBox)
+signal direction_changed
 
 #region /// On Ready Variables
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -103,7 +104,7 @@ var previousState: PlayerState:
 	get: return states[1]
 
 var direction := Vector2.ZERO
-var gravity := 600.0
+@export var gravity := 600.0
 var gravity_multiplier := 1.0
 var invulnerable : bool = false
 var signalled_state : PlayerState = null

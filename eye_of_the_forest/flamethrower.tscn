@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://g5u2ggu7lxnk"]
+[gd_scene load_steps=13 format=3 uid="uid://g5u2ggu7lxnk"]
 
 [ext_resource type="Script" uid="uid://ce7y5275lyn7g" path="res://eye_of_the_forest/scripts/flamethrower_attack.gd" id="1_50sj3"]
 [ext_resource type="Material" uid="uid://bw4u86tojwrtx" path="res://eye_of_the_forest/shaders and materials/light_material.tres" id="1_d8aly"]
@@ -6,45 +6,7 @@
 [ext_resource type="Script" uid="uid://bnt34mreyafsn" path="res://eye_of_the_forest/scripts/flamethrower.gd" id="2_d8aly"]
 [ext_resource type="Texture2D" uid="uid://ki05hglj4kp4" path="res://eye_of_the_forest/sprites/New Piskel (5).png" id="3_kjxvx"]
 [ext_resource type="Script" uid="uid://dyo7pc6md02iv" path="res://player/healthbar/hurtbox/hurt_box.gd" id="5_tdh8g"]
-
-[sub_resource type="Animation" id="Animation_tdh8g"]
-resource_name = "default"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("HurtBox:monitoring")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("FlameWarning:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("FlameThrower:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
+[ext_resource type="AudioStream" uid="uid://cp4kio1u4qron" path="res://Global/sounds/flamethrower.ogg" id="6_w7ix5"]
 
 [sub_resource type="Animation" id="Animation_50sj3"]
 length = 0.001
@@ -120,7 +82,7 @@ tracks/0/path = NodePath("HurtBox:monitoring")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.5, 3.6),
+"times": PackedFloat32Array(0, 1.5, 3.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, false]
@@ -173,6 +135,60 @@ tracks/4/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(0.9073196, 0.11647071, 0.08967282, 1), Color(0.90588236, 0.11764706, 0.09019608, 0)]
 }
+tracks/5/type = "audio"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioStreamPlayer2D")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_w7ix5")
+}],
+"times": PackedFloat32Array(1.3)
+}
+tracks/5/use_blend = true
+
+[sub_resource type="Animation" id="Animation_tdh8g"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HurtBox:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FlameWarning:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FlameThrower:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w7ix5"]
 _data = {
@@ -182,7 +198,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_50sj3"]
-size = Vector2(95, 543)
+size = Vector2(95, 1010)
 
 [node name="Flamethrower" type="Node2D"]
 script = ExtResource("1_50sj3")
@@ -194,7 +210,7 @@ texture_repeat = 2
 position = Vector2(7, 0)
 texture = ExtResource("1_nylow")
 region_enabled = true
-region_rect = Rect2(0, 0, 32, 550)
+region_rect = Rect2(0, 0, 32, 1020)
 script = ExtResource("2_d8aly")
 
 [node name="FlameThrower" type="Sprite2D" parent="."]
@@ -206,7 +222,7 @@ position = Vector2(-8.499999, -5.0000076)
 scale = Vector2(6.8529415, 4.3622046)
 texture = ExtResource("3_kjxvx")
 region_enabled = true
-region_rect = Rect2(-2, 0, 34, 127)
+region_rect = Rect2(-2, 0, 34, 1020)
 script = ExtResource("2_d8aly")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
@@ -215,7 +231,7 @@ script = ExtResource("2_d8aly")
 libraries = {
 &"": SubResource("AnimationLibrary_w7ix5")
 }
-autoplay = "default"
+autoplay = "attack"
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 8
@@ -227,5 +243,5 @@ damage = 23
 metadata/_custom_type_script = "uid://dyo7pc6md02iv"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(8, -6)
+position = Vector2(8, 5)
 shape = SubResource("RectangleShape2D_50sj3")

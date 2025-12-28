@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://nsgwayib1jd7"]
+
+[sub_resource type="GDScript" id="GDScript_4ypk1"]
+script/source = "extends Area2D
+
+var player = PlayerManager.player
+@onready var checkpoint: Sprite2D = $Sprite2D
+
+
+func _ready() -> void:
+	area_entered.connect(respawn_player)
+	pass
+	
+func respawn_player():
+	print(\"nuts\")
+	SceneTransition.fade_out()
+	player.global_position = checkpoint.global_position
+	SceneTransition.fade_in()
+	await SceneTransition.fade_in()
+	player.health -= 10
+	pass
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vdn2u"]
+size = Vector2(284, 20)
+
+[node name="DeathZone" type="Area2D"]
+collision_layer = 0
+collision_mask = 16
+script = SubResource("GDScript_4ypk1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vdn2u")
+debug_color = Color(1, 0, 0.16563511, 0.41960785)

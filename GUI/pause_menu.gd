@@ -41,9 +41,11 @@ func close_pause_menu() -> void:
 	hidden.emit()
 
 func _on_save_pressed() -> void:
-	var equipment_menu_scene = load("res://GUI/pause_menu/equipment/equipment_menu.tscn")
-	var equipment_menu = equipment_menu_scene.instantiate()
-	get_tree().root.add_child(equipment_menu)
+	print("saved")
+	SaveManager.save_game()
+#	var equipment_menu_scene = load("res://GUI/pause_menu/equipment/equipment_menu.tscn")
+#	var equipment_menu = equipment_menu_scene.instantiate()
+#	get_tree().root.add_child(equipment_menu)
 
 
 func _on_stats_pressed() -> void:

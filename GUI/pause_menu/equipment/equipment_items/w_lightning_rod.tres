@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EquipableItemData" load_steps=6 format=3 uid="uid://clvcwhcm86uvs"]
+[gd_resource type="Resource" script_class="EquipableItemData" load_steps=7 format=3 uid="uid://clvcwhcm86uvs"]
 
 [ext_resource type="Script" uid="uid://bdk3i4hgmsw6b" path="res://items/item_effects/item_effect.gd" id="1_0saeu"]
 [ext_resource type="Script" uid="uid://b1dqebuji43vm" path="res://GUI/pause_menu/equipment/scripts/equippable_item_modifier.gd" id="2_y6lc3"]
@@ -16,9 +16,14 @@ type = 16
 value = 5
 metadata/_custom_type_script = "uid://b1dqebuji43vm"
 
+[sub_resource type="Resource" id="Resource_dbibq"]
+script = ExtResource("2_y6lc3")
+value = 20
+metadata/_custom_type_script = "uid://b1dqebuji43vm"
+
 [resource]
 script = ExtResource("3_35nm7")
-modifiers = Array[ExtResource("2_y6lc3")]([SubResource("Resource_au7gl"), SubResource("Resource_0saeu")])
+modifiers = Array[ExtResource("2_y6lc3")]([SubResource("Resource_au7gl"), SubResource("Resource_0saeu"), SubResource("Resource_dbibq")])
 name = "Power Cell"
 description = "A rod-shaped construct that-- despite being separated from it's host body-- maintains function. It's a technological marvel. "
 metadata/_custom_type_script = "uid://cgj8xaa0065wy"

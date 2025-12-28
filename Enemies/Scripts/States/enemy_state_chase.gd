@@ -3,6 +3,7 @@ class_name EnemyStateChase extends EnemyState
 const PATHFINDER : PackedScene = preload("res://Enemies/pathfinder.tscn")
 const AVOID : PackedScene = preload("res://Enemies/avoidpathfinder.tscn")
 const SLASH_SCENE: PackedScene = preload("res://eye_of_the_forest/realslash.tscn")
+@onready var slashpre: AudioStreamPlayer2D = $"../../Slashpre"
 
 
 @export var anim_name : String = "chase"
@@ -13,6 +14,7 @@ const SLASH_SCENE: PackedScene = preload("res://eye_of_the_forest/realslash.tscn
 @export var vision_area : VisionArea
 @export var attack_area : HurtBox
 @export var state_aggro_duration : float = 0.5
+@export var avoider_aggro_duration : float = 5
 @export var next_state : EnemyState
 
 var _timer : float = 0.0
@@ -32,6 +34,7 @@ func init() -> void:
 
 # What happens when we enter this state?
 func enter() -> void:
+	enemy.wingsflutter.play()
 	if enemy.avoider == false:
 		pathfinder = PATHFINDER.instantiate() as Pathfinder
 		enemy.add_child(pathfinder)
@@ -40,8 +43,10 @@ func enter() -> void:
 		enemy.add_child(avoidfinder)
 	if enemy.attacker == true:
 		attack_timer = attack_cooldown
-		
-	_timer = state_aggro_duration
+	if enemy.avoider == false:
+		_timer = state_aggro_duration
+	if enemy.avoider == true:
+		_timer = avoider_aggro_duration
 	#enemy.update_animation(anim_name)
 	if attack_area:
 		attack_area.monitoring = true
@@ -50,6 +55,7 @@ func enter() -> void:
 
 # What happens when we exit this state?
 func exit() -> void:
+	enemy.wingsflutter.stop()
 	if enemy.avoider == false:
 		pathfinder.queue_free()
 	elif enemy.avoider == true:
@@ -83,16 +89,20 @@ func process(_delta: float) -> EnemyState:
 		_timer -= _delta
 		if _timer <= 0:
 			return next_state
-	else: 
-		_timer = state_aggro_duration
+	else:
+		if enemy.attacker == false: 
+			_timer = state_aggro_duration
+		if enemy.attacker == true:
+			_timer = avoider_aggro_duration
 	return null
 	
 func attack(): 
 	attack_timer = attack_cooldown
 	var eb : Node2D = SLASH_SCENE.instantiate()
+	slashpre.play()
+	await slashpre.finished
 	eb.global_position = get_parent().get_parent().global_position + Vector2(0, -34)
 	get_parent().add_child.call_deferred(eb)
-	print("Shot")
 
 # What happens each physics process tick in this state?
 func physics(_delta: float) -> EnemyState:

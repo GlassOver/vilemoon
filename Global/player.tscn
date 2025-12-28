@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bf5tqkwm0y2l3"]
+[gd_scene load_steps=35 format=3 uid="uid://bf5tqkwm0y2l3"]
 
 [ext_resource type="Script" uid="uid://bee6ytpl3yau7" path="res://player/player.gd" id="1_vvscm"]
 [ext_resource type="Material" uid="uid://cdrunyk4ig568" path="res://Global/outline_shader.tres" id="2_dpq8s"]
@@ -15,7 +15,17 @@
 [ext_resource type="PackedScene" uid="uid://bfdpeocn58hen" path="res://player/healthbar/hurtbox/hurt_box.tscn" id="12_marfm"]
 [ext_resource type="Script" uid="uid://cktnpnxw3u81t" path="res://player/states/stun.gd" id="12_p6wgc"]
 [ext_resource type="Script" uid="uid://d133nvuuiegwk" path="res://player/healthbar/hitbox/hitbox.gd" id="13_p6wgc"]
+[ext_resource type="Script" uid="uid://2joe5ii6ipx" path="res://player/states/death.gd" id="14_ajg7s"]
 [ext_resource type="PackedScene" uid="uid://rid55rih0dkw" path="res://items/item_magnet/item_magnet.tscn" id="15_7jnpu"]
+[ext_resource type="Texture2D" uid="uid://chqct88klgu17" path="res://eye_of_the_forest/sprites/New Piskel (2).png" id="16_q3pct"]
+[ext_resource type="Script" uid="uid://b3fq67ga0ypei" path="res://Global/player_interactions_host.gd" id="18_qwug2"]
+[ext_resource type="AudioStream" uid="uid://b5hwh3wdr3wfe" path="res://Global/sounds/realwalk.ogg" id="19_fou7p"]
+[ext_resource type="AudioStream" uid="uid://dxkuj83lfr5h1" path="res://Global/sounds/horiz_dodge.ogg" id="20_w6gqt"]
+[ext_resource type="AudioStream" uid="uid://cieq8vcc1pwlc" path="res://Global/sounds/vert_dodge.ogg" id="21_16prm"]
+[ext_resource type="AudioStream" uid="uid://t6x06p280hyc" path="res://Global/sounds/sword_slash.ogg" id="22_ecvfa"]
+[ext_resource type="AudioStream" uid="uid://bfgjxwgfdwu1d" path="res://Global/sounds/land_sfx.ogg" id="23_yyt4x"]
+[ext_resource type="AudioStream" uid="uid://bhilbjqbsnis4" path="res://Global/sounds/slide.ogg" id="24_hkiq0"]
+[ext_resource type="AudioStream" uid="uid://dkassylo6sv5b" path="res://Global/sounds/super_mantle.ogg" id="25_2y67t"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rkbax"]
 animations = [{
@@ -45,7 +55,7 @@ animations = [{
 size = Vector2(20, 33.249416)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rgyib"]
-size = Vector2(20, 38.322548)
+size = Vector2(20, 27.54433)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bgi0l"]
 radius = 79.00633
@@ -61,7 +71,10 @@ height = 34.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_dpq8s"]
 radius = 98.02041
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qwug2"]
+size = Vector2(63, 20)
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 24
 collision_mask = 7
 script = ExtResource("1_vvscm")
@@ -70,20 +83,19 @@ script = ExtResource("1_vvscm")
 material = ExtResource("2_dpq8s")
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_rkbax")
-animation = &"standinRun"
+animation = &"standinIdle"
 autoplay = "standinIdle"
+frame_progress = 0.8815689
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
-visible = false
 position = Vector2(0, -32.5)
 scale = Vector2(1.6365466, 1.8947699)
 shape = SubResource("RectangleShape2D_boad6")
 
 [node name="CollisionCrouch" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
-visible = false
-position = Vector2(0, -16)
+position = Vector2(0, -11.5)
 scale = Vector2(1.6130853, 0.8350176)
 shape = SubResource("RectangleShape2D_rgyib")
 disabled = true
@@ -128,8 +140,11 @@ decelerate_speed = 11.0
 unique_name_in_owner = true
 script = ExtResource("12_p6wgc")
 
+[node name="Death" type="Node" parent="States"]
+unique_name_in_owner = true
+script = ExtResource("14_ajg7s")
+
 [node name="HurtBox" parent="." instance=ExtResource("12_marfm")]
-visible = false
 collision_layer = 256
 collision_mask = 256
 
@@ -147,8 +162,23 @@ shape = SubResource("CircleShape2D_bgi0l")
 disabled = true
 debug_color = Color(0.7749407, 0.14539094, 0.21738556, 0.41960785)
 
-[node name="HitBox" type="Area2D" parent="."]
+[node name="HorizSlash" type="Sprite2D" parent="HurtBox"]
 visible = false
+position = Vector2(98.62694, -58.751503)
+rotation = 2.7331855
+scale = Vector2(2.2260487, 7.0634646)
+texture = ExtResource("16_q3pct")
+flip_v = true
+
+[node name="VertSlash" type="Sprite2D" parent="HurtBox"]
+visible = false
+position = Vector2(-2.0000038, -173.00002)
+rotation = 1.7139133
+scale = Vector2(2.2260487, 7.0634646)
+texture = ExtResource("16_q3pct")
+flip_v = true
+
+[node name="HitBox" type="Area2D" parent="."]
 collision_layer = 264
 collision_mask = 256
 script = ExtResource("13_p6wgc")
@@ -160,7 +190,6 @@ shape = SubResource("CapsuleShape2D_j185d")
 debug_color = Color(0.9310799, 0.91179985, 0.6339296, 0.41960785)
 
 [node name="CrouchHitBox" type="Area2D" parent="."]
-visible = false
 collision_layer = 264
 collision_mask = 256
 script = ExtResource("13_p6wgc")
@@ -172,7 +201,6 @@ shape = SubResource("CapsuleShape2D_7jnpu")
 debug_color = Color(0.9310799, 0.91179985, 0.6339296, 0.41960785)
 
 [node name="ItemMagnet" parent="." instance=ExtResource("15_7jnpu")]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemMagnet"]
 position = Vector2(0, -32)
@@ -192,3 +220,46 @@ target_position = Vector2(0, -11.999998)
 collision_mask = 4
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Interactions" type="Node2D" parent="."]
+script = ExtResource("18_qwug2")
+
+[node name="Area2D" type="Area2D" parent="Interactions"]
+collision_layer = 32
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactions/Area2D"]
+position = Vector2(1, -16)
+shape = SubResource("RectangleShape2D_qwug2")
+
+[node name="RunAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("19_fou7p")
+volume_db = 11.17
+max_distance = 4096.0
+attenuation = 0.18946461
+
+[node name="DodgeAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("20_w6gqt")
+
+[node name="VertDodgeAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("21_16prm")
+
+[node name="SwordAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("22_ecvfa")
+
+[node name="LandAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("23_yyt4x")
+volume_db = -16.455
+
+[node name="SlideAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("24_hkiq0")
+
+[node name="MantleAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("25_2y67t")
+volume_db = 7.8
+
+[node name="CrouchRay" type="RayCast2D" parent="."]
+rotation = 3.1415927
+enabled = false
+target_position = Vector2(5.5950577e-06, 64)

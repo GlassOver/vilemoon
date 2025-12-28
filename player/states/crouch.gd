@@ -1,5 +1,9 @@
 class_name PlayerStateCrouch extends PlayerState
 
+@onready var slide_audio: AudioStreamPlayer2D = $"../../SlideAudio"
+@onready var crouch_ray: RayCast2D = $"../../CrouchRay"
+
+
 @export var slide_cooldown : float = 1.0  
 @export var deceleration_rate : float = 4
 @export var effect_delay : float = 0.005
@@ -22,6 +26,7 @@ func enter() -> void:
 
 	if player.isDodging == true:
 		exit()
+
 	player.collision_stand.disabled = true
 	player.collision_crouch.disabled = false
 	player.hit_box.monitorable = false
@@ -34,6 +39,7 @@ func enter() -> void:
 
 func exit() -> void:
 	
+
 	player.slideTimer = player.slideTime
 	player.collision_stand.disabled = false
 	player.collision_crouch.disabled = true
@@ -48,6 +54,7 @@ func handleInput(_event : InputEvent) -> PlayerState:
 	if _event.is_action_pressed("jump"):
 		return jump
 	return nextState
+
 
 
 func process(_delta: float) -> PlayerState:
@@ -70,8 +77,11 @@ func physics_process(_delta: float) -> PlayerState:
 	if player.isDodging == true:
 		exit()
 	if slideDuration >= 0:
+		slide_audio.play()
 		var boosted = k * k
+		
 		player.velocity.x = player.velocity.x * boosted
+
 
 
 	player.velocity.x -= player.velocity.x * deceleration_rate * _delta

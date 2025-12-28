@@ -83,7 +83,6 @@ func _on_load_pressed() -> void:
 
 	
 func update_stats() -> void:
-	print("update")
 	var _p : Player = PlayerManager.player
 	lvl_label.text = str(_p.lvl)
 	

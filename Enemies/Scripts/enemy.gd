@@ -5,12 +5,19 @@ signal enemy_damaged(hurt_box : HurtBox)
 signal enemy_destroyed(hurt_box : HurtBox)
 
 const DIR_4 = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
+const DIR_2 = [Vector2.RIGHT, Vector2.LEFT]
+
+@onready var wingsflutter: AudioStreamPlayer2D = $Wingsflutter
+@onready var damaged_sfx: AudioStreamPlayer2D = $Damaged
+@onready var destroyed_sfx: AudioStreamPlayer2D = $Destroyed
+
 
 @export var hp : int = 30
 @export var xp_reward : int = 1
+@export var wander_speed : float = 150
 @export var avoider : bool = false
 @export var attacker : bool = false
-
+@export var wanderer : bool = false
 var cardinal_direction : Vector2 = Vector2.DOWN
 var direction : Vector2 = Vector2.ZERO
 var player : Player
@@ -19,6 +26,7 @@ var invunlerable : bool = false
 #@onready var animation_player : AnimationPlayer = $AnimationPlayer 
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var hit_box : HitBox = $HitBox
+@onready var wall_detect: RayCast2D = $WallDetect
 @onready var state_machine : EnemyStateMachine = $EnemyStateMachine
 
 
@@ -71,8 +79,11 @@ func _take_damage(hurt_box : HurtBox) -> void:
 	EffectManager.damage_text(hurt_box.damage, global_position + Vector2(0,-36))
 	if hp > 0:
 		enemy_damaged.emit(hurt_box)
+		damaged_sfx.play()
 	else:
+		
 		enemy_destroyed.emit(hurt_box)
+		
 	
 	
 	

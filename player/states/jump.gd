@@ -33,7 +33,7 @@ func exit() -> void:
 	super_speed_multiplier = 1.0
 
 func handleInput(event : InputEvent) -> PlayerState:
-	if Input.is_action_just_pressed("attack") and player.attackTimer <= 0:
+	if Input.is_action_pressed("attack") and player.attackTimer <= 0:
 		return attack
 
 	if not fixed_jump and event.is_action_released("jump"):

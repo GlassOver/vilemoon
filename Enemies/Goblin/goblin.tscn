@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dd0fmng7hosa1"]
+[gd_scene load_steps=27 format=3 uid="uid://dd0fmng7hosa1"]
 
 [ext_resource type="Script" uid="uid://bpewqmw7sw58u" path="res://Enemies/Scripts/enemy.gd" id="1_dgr3s"]
 [ext_resource type="Script" uid="uid://dmksxpjut2wtt" path="res://Enemies/Scripts/enemy_state_machine.gd" id="2_ay3vf"]
@@ -11,8 +11,13 @@
 [ext_resource type="Resource" uid="uid://g2fodkxuce8k" path="res://items/shoddy_decoder.tres" id="9_pcyyc"]
 [ext_resource type="PackedScene" uid="uid://bfdpeocn58hen" path="res://player/healthbar/hurtbox/hurt_box.tscn" id="10_cu2p6"]
 [ext_resource type="Script" uid="uid://cjkkk04ahs1cp" path="res://Enemies/Scripts/States/enemy_state_chase.gd" id="10_egddf"]
+[ext_resource type="Resource" uid="uid://c67k1yrd0vwfw" path="res://items/potion.tres" id="10_r3i0u"]
 [ext_resource type="Script" uid="uid://d133nvuuiegwk" path="res://player/healthbar/hitbox/hitbox.gd" id="11_q0lai"]
 [ext_resource type="PackedScene" uid="uid://85awlrntq20i" path="res://Enemies/vision_area.tscn" id="13_3xcr1"]
+[ext_resource type="AudioStream" uid="uid://djwxgb72imxsj" path="res://Global/sounds/flutter.ogg" id="14_3xcr1"]
+[ext_resource type="AudioStream" uid="uid://dr4ev2hd1wmv3" path="res://Global/sounds/metal_damaged.ogg" id="15_fuxiv"]
+[ext_resource type="AudioStream" uid="uid://de2nr4ia66uru" path="res://Global/sounds/exxplosion.ogg" id="16_hvprn"]
+[ext_resource type="AudioStream" uid="uid://yot6ux76imc5" path="res://title_scene/resources/shing.wav" id="18_p257j"]
 
 [sub_resource type="Resource" id="Resource_t1krp"]
 script = ExtResource("7_lvhkj")
@@ -25,6 +30,12 @@ metadata/_custom_type_script = "uid://bl06e4y3xddbq"
 script = ExtResource("7_lvhkj")
 item = ExtResource("9_pcyyc")
 probability = 5.0
+metadata/_custom_type_script = "uid://bl06e4y3xddbq"
+
+[sub_resource type="Resource" id="Resource_p257j"]
+script = ExtResource("7_lvhkj")
+item = ExtResource("10_r3i0u")
+probability = 7.0
 metadata/_custom_type_script = "uid://bl06e4y3xddbq"
 
 [sub_resource type="Gradient" id="Gradient_vswm2"]
@@ -40,10 +51,11 @@ size = Vector2(46, 62)
 size = Vector2(54.5, 41)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fuxiv"]
-radius = 197.32
+radius = 240.00209
 
 [node name="Goblin" type="CharacterBody2D"]
 collision_layer = 256
+collision_mask = 3
 script = ExtResource("1_dgr3s")
 xp_reward = 10
 
@@ -64,7 +76,7 @@ next_state = NodePath("../Chase")
 
 [node name="Destroy" type="Node" parent="EnemyStateMachine"]
 script = ExtResource("6_f3wku")
-drops = Array[ExtResource("7_lvhkj")]([SubResource("Resource_t1krp"), SubResource("Resource_nsi17")])
+drops = Array[ExtResource("7_lvhkj")]([SubResource("Resource_t1krp"), SubResource("Resource_nsi17"), SubResource("Resource_p257j")])
 
 [node name="Chase" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("vision_area", "attack_area", "next_state")]
 script = ExtResource("10_egddf")
@@ -115,3 +127,21 @@ polygon = PackedVector2Array(-32, 0, 32, 0, 256, 256, -256, 256)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea"]
 shape = SubResource("CircleShape2D_fuxiv")
+
+[node name="WallDetect" type="RayCast2D" parent="."]
+rotation = -1.5707964
+
+[node name="Wingsflutter" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_3xcr1")
+
+[node name="Damaged" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_fuxiv")
+volume_db = 17.348
+
+[node name="Destroyed" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_hvprn")
+volume_db = 24.0
+
+[node name="Slashpre" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("18_p257j")
+volume_db = 5.57

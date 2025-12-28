@@ -5,6 +5,8 @@ class_name PlayerStateStun extends PlayerState
 @export var decelerate_speed : float = 500.0
 @export var invulnerable_duration : float = 1.0
 
+
+
 var hurt_box : HurtBox
 var direction : Vector2
 var gravity_multiplier : float = 0.3
@@ -23,7 +25,8 @@ func _ready():
 
 func enter() -> void:
 	#player.animation_player.animation_finished.connect(_animation_finished)
-	#print("Stunned")
+	print("Stunned")
+
 	direction = player.global_position.direction_to(hurt_box.global_position)
 	direction.y = clampf(direction.y, -.5, +.5)
 	direction.y /= 100
@@ -36,7 +39,9 @@ func enter() -> void:
 	pass
 	
 func _animation_finished():
-	#print("erm")
+	if player.health == 0:
+		SaveManager.load_game()
+		return death
 	pass
 	
 func process(_delta : float ) -> PlayerState:

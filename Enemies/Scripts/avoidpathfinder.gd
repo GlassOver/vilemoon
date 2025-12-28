@@ -1,9 +1,9 @@
 class_name AvoidPathfinder extends Node2D
 
-@export var desired_distance := 300.0
-@export var distance_strength := 2.0
+@export var desired_distance := 370.0
+@export var distance_strength := 3.0
 @export var obstacle_strength := 4.0
-@export var max_force := 0.5
+@export var max_force := 1.0
 @export var smoothing := 8.0
 
 var rays: Array[RayCast2D] = []

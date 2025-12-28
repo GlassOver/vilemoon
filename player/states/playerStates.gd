@@ -16,6 +16,7 @@ var signalled_state : PlayerState = null
 @onready var dodge: PlayerStateDodge = %Dodge
 @onready var attack: PlayerStateAttack = %Attack
 @onready var stun: PlayerStateStun = %Stun
+@onready var death: PlayerStateDeath = %Death
 
 
 

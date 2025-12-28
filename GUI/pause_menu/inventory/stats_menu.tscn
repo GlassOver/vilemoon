@@ -28,9 +28,9 @@ grow_vertical = 2
 color = Color(0.2508037, 0.43893027, 0.72503954, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(316.95752, 187.20679)
+position = Vector2(436.5379, 247.60092)
 rotation = 4.712389
-scale = Vector2(5.8352747, 9.951797)
+scale = Vector2(7.722592, 13.6886835)
 texture = SubResource("GradientTexture2D_yl21o")
 
 [node name="Control" type="Control" parent="."]
@@ -44,9 +44,9 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 317.0
+offset_left = 519.0
 offset_top = 46.0
-offset_right = 578.0
+offset_right = 780.0
 offset_bottom = 101.0
 grow_horizontal = 2
 
@@ -55,9 +55,9 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 317.0
+offset_left = 519.0
 offset_top = 116.0
-offset_right = 578.0
+offset_right = 780.0
 offset_bottom = 289.27585
 grow_horizontal = 2
 scale = Vector2(1, 1.1600001)
@@ -93,9 +93,9 @@ text = "Stats"
 
 [node name="ExpCont" type="HBoxContainer" parent="Control/Stats"]
 custom_minimum_size = Vector2(0, 0.35)
-offset_left = 499.545
+offset_left = 701.54504
 offset_top = 84.0
-offset_right = 583.54504
+offset_right = 785.54504
 offset_bottom = 98.0
 
 [node name="Label" type="Label" parent="Control/Stats/ExpCont"]
@@ -116,9 +116,9 @@ horizontal_alignment = 2
 
 [node name="HpCont" type="HBoxContainer" parent="Control/Stats"]
 custom_minimum_size = Vector2(0, 0.35)
-offset_left = 345.0
-offset_top = 51.185
-offset_right = 429.00003
+offset_left = 547.0
+offset_top = 51.184998
+offset_right = 680.0
 offset_bottom = 65.18503
 
 [node name="Label" type="Label" parent="Control/Stats/HpCont"]
@@ -146,9 +146,9 @@ horizontal_alignment = 2
 
 [node name="HpCont2" type="HBoxContainer" parent="Control/Stats"]
 custom_minimum_size = Vector2(0, 0.35)
-offset_left = 345.0
+offset_left = 547.0
 offset_top = 64.55
-offset_right = 429.00003
+offset_right = 680.0
 offset_bottom = 78.55009
 
 [node name="Label" type="Label" parent="Control/Stats/HpCont2"]
@@ -176,9 +176,9 @@ horizontal_alignment = 2
 
 [node name="LvlCont" type="HBoxContainer" parent="Control/Stats"]
 custom_minimum_size = Vector2(0, 0.35)
-offset_left = 345.0
+offset_left = 547.0
 offset_top = 84.0
-offset_right = 434.0
+offset_right = 636.0
 offset_bottom = 98.0
 
 [node name="Label" type="Label" parent="Control/Stats/LvlCont"]
@@ -198,9 +198,9 @@ text = "1"
 horizontal_alignment = 2
 
 [node name="StatsCont" type="VBoxContainer" parent="Control/Stats"]
-offset_left = 346.0
+offset_left = 548.0
 offset_top = 138.0
-offset_right = 489.0
+offset_right = 751.0
 offset_bottom = 224.0
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="Control/Stats/StatsCont"]

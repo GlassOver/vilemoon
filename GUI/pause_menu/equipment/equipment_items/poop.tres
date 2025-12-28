@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="EquipableItemData" load_steps=6 format=3 uid="uid://bohmro4kakdkw"]
+
+[ext_resource type="Script" uid="uid://bdk3i4hgmsw6b" path="res://items/item_effects/item_effect.gd" id="1_lw66n"]
+[ext_resource type="Script" uid="uid://b1dqebuji43vm" path="res://GUI/pause_menu/equipment/scripts/equippable_item_modifier.gd" id="2_8ikoe"]
+[ext_resource type="Script" uid="uid://cgj8xaa0065wy" path="res://GUI/pause_menu/equipment/scripts/equippable_item_data.gd" id="3_x0q24"]
+
+[sub_resource type="Resource" id="Resource_au7gl"]
+script = ExtResource("2_8ikoe")
+type = 1
+value = 10
+metadata/_custom_type_script = "uid://b1dqebuji43vm"
+
+[sub_resource type="Resource" id="Resource_jnouq"]
+script = ExtResource("2_8ikoe")
+type = 12
+value = 2
+metadata/_custom_type_script = "uid://b1dqebuji43vm"
+
+[resource]
+script = ExtResource("3_x0q24")
+type = 2
+modifiers = Array[ExtResource("2_8ikoe")]([SubResource("Resource_au7gl"), SubResource("Resource_jnouq")])
+name = "Blackened Coat"
+description = "A thick, ratty coat that I prefer not to part with. It's been my signature look for a while now. On top of that, it holds some sentimental value for me. Even if I'm not wearing it it-- and the memories attached-- are always on my mind. "
+metadata/_custom_type_script = "uid://cgj8xaa0065wy"

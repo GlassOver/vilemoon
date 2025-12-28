@@ -1,26 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnooh0ukmhvqy"]
+[gd_scene load_steps=6 format=3 uid="uid://cnooh0ukmhvqy"]
 
 [ext_resource type="Script" uid="uid://l7kro7f0gy45" path="res://eye_of_the_forest/scripts/real_slash.gd" id="1_m2t4s"]
+[ext_resource type="AudioStream" uid="uid://dsumvsbbjqpl5" path="res://Global/sounds/cut.ogg" id="2_cktd8"]
 [ext_resource type="PackedScene" uid="uid://bfdpeocn58hen" path="res://player/healthbar/hurtbox/hurt_box.tscn" id="3_qsefn"]
 [ext_resource type="Texture2D" uid="uid://chqct88klgu17" path="res://eye_of_the_forest/sprites/New Piskel (2).png" id="4_cktd8"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_0s73h"]
-radius = 38.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cktd8"]
+size = Vector2(122, 37)
 
 [node name="RealSlash" type="Node2D"]
 script = ExtResource("1_m2t4s")
 speed = 1500.0
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_cktd8")
+volume_db = 24.0
 
 [node name="HurtBox" parent="." instance=ExtResource("3_qsefn")]
-visible = false
 damage = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-shape = SubResource("CircleShape2D_0s73h")
+position = Vector2(-9, 12.5)
+shape = SubResource("RectangleShape2D_cktd8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1.0000153, -1.9073486e-06)
-scale = Vector2(5.65625, 6.4375)
+position = Vector2(-2.0000048, 2.5000029)
+scale = Vector2(2.5625, 5.5937505)
 texture = ExtResource("4_cktd8")

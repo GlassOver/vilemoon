@@ -1,5 +1,8 @@
 class_name PlayerStateFall extends PlayerState
 
+@onready var land_audio: AudioStreamPlayer2D = $"../../LandAudio"
+
+
 @export var fall_gravity_multiplier : float = 5.165
 @export var coyote_time : float = 0.125
 @export var jump_buffer_time : float = 0.2 #This is the glitch
@@ -28,13 +31,14 @@ func enter() -> void:
 
 # What happens when we exit this state?
 func exit() -> void:
+	land_audio.play()
 	player.gravity_multiplier = 1.0
 	pass
 
 
 # What happens when an input is pressed?
 func handleInput( _event : InputEvent ) -> PlayerState:
-	if Input.is_action_just_pressed("attack") and player.attackTimer <= 0:
+	if Input.is_action_pressed("attack") and player.attackTimer <= 0:
 		return attack
 
 

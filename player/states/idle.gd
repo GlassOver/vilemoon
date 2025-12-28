@@ -8,6 +8,7 @@ func init() -> void:
 	
 # What happens when we enter this state?
 func enter() -> void:
+
 	pass
 	
 
@@ -18,11 +19,15 @@ func exit() -> void:
 
 # What happens when an input is pressed?
 func handleInput( _event : InputEvent ) -> PlayerState:
-	if Input.is_action_just_pressed("attack") and player.attackTimer <= 0:
+	if _event.is_action_pressed("interact"):
+		PlayerManager.interact_pressed.emit()
+	
+	if _event.is_action_pressed("attack") and player.attackTimer <= 0:
 		return attack
 
 	if _event.is_action_pressed("jump"):
 		return jump
+		
 	if Input.is_action_just_pressed("dodge") and Input.is_action_pressed("up") and player.dodgeTimer <= 0:
 		return dodge
 	

@@ -16,15 +16,9 @@ process_mode = 3
 script = ExtResource("1_4w82k")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -322.0
-offset_top = -186.0
-offset_right = 321.0
-offset_bottom = 198.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.3254902, 0.3254902, 0.24705882, 0.41568628)
@@ -35,18 +29,18 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -280.0
+offset_left = -392.5
 offset_top = -179.0
-offset_right = -151.0
+offset_right = -263.5
 offset_bottom = 198.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.2509804, 0.4392157, 0.7254902, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="ColorRect2"]
-position = Vector2(84.33502, 187.20679)
+position = Vector2(84.33502, 179.23477)
 rotation = 4.712389
-scale = Vector2(5.8352747, 2.6823432)
+scale = Vector2(7.523794, 2.6823432)
 texture = SubResource("GradientTexture2D_4jg2x")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -54,9 +48,9 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 42.0
-offset_top = -148.0
+offset_top = -211.0
 offset_right = 207.0
-offset_bottom = -12.0
+offset_bottom = -75.0
 grow_vertical = 2
 
 [node name="Button_Save" type="Button" parent="VBoxContainer"]

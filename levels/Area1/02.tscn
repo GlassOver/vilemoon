@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://ddssigtpv65ce"]
+
+[ext_resource type="Texture2D" uid="uid://4fippf5e8l23" path="res://tilesets/Shittile.png" id="1_x6mfq"]
+[ext_resource type="Script" uid="uid://bcewapkm6wdpq" path="res://levels/Area1/camera_controller_02.gd" id="2_avrr6"]
+[ext_resource type="PackedScene" uid="uid://blwkf75ho0wuj" path="res://levels/player_spawn.tscn" id="3_ye7uc"]
+[ext_resource type="PackedScene" uid="uid://cawckre04iqyt" path="res://levels/level_transition.tscn" id="4_avrr6"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bot5a"]
+texture = ExtResource("1_x6mfq")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_7slk1"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_bot5a")
+
+[node name="02" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+unique_name_in_owner = true
+position = Vector2(4, 7)
+tile_set = SubResource("TileSet_7slk1")
+format = 2
+layer_0/name = "Ground"
+layer_0/tile_data = PackedInt32Array(65533, 131072, 2, 65534, 131072, 2, 65535, 131072, 2, 0, 131072, 2, 1, 131072, 2, 2, 131072, 2, 3, 131072, 2, 131069, 131072, 2, 131070, 131072, 2, 131071, 131072, 2, 65536, 131072, 2, 65537, 131072, 2, 65538, 131072, 2, 65539, 131072, 2, 196605, 131072, 2, 196606, 131072, 2, 196607, 131072, 2, 131072, 131072, 2, 131073, 131072, 2, 131074, 131072, 2, 131075, 131072, 2, 4, 131072, 2, 65540, 131072, 2, 131076, 131072, 2, 5, 131072, 2, 65541, 131072, 2, 131077, 131072, 2, 6, 131072, 2, 65542, 131072, 2, 131078, 131072, 2, 7, 131072, 2, 65543, 131072, 2, 131079, 131072, 2, 8, 131072, 2, 65544, 131072, 2, 131080, 131072, 2, 9, 131072, 2, 65545, 131072, 2, 131081, 131072, 2)
+
+[node name="CameraController" type="Node2D" parent="."]
+position = Vector2(195, -143)
+script = ExtResource("2_avrr6")
+
+[node name="Camera2D" type="Camera2D" parent="CameraController"]
+position = Vector2(1, -9)
+zoom = Vector2(0.7, 0.7)
+
+[node name="PlayerSpawn" parent="." instance=ExtResource("3_ye7uc")]
+position = Vector2(18, -5)
+
+[node name="LevelTransition" parent="." instance=ExtResource("4_avrr6")]
+position = Vector2(133, -28)
+level = "uid://cyoevspb7whar"

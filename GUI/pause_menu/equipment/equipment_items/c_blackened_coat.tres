@@ -21,5 +21,5 @@ script = ExtResource("3_1vjiw")
 type = 2
 modifiers = Array[ExtResource("2_g1jxy")]([SubResource("Resource_au7gl"), SubResource("Resource_jnouq")])
 name = "Blackened Coat"
-description = "It's been with me since the very beginning. Despite that, it only reminds me of her. "
+description = "A thick, ratty coat that I prefer not to part with. It's been my signature look for a while now. On top of that, it holds some sentimental value for me. Even if I'm not wearing it it-- and the memories attached-- are always on my mind. "
 metadata/_custom_type_script = "uid://cgj8xaa0065wy"

@@ -21,6 +21,7 @@ func init() -> void:
 	enemy.enemy_destroyed.connect(_on_enemy_destroyed)
 
 func enter() -> void:
+	enemy.destroyed_sfx.play()
 	enemy.invunlerable = true
 	_direction = (enemy.global_position - _damage_position).normalized()
 	enemy.velocity = _direction * knockback_speed

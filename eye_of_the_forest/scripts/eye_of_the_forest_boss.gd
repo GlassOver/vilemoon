@@ -13,6 +13,7 @@ const SUPERFLAMETHROWER_SCENE: PackedScene = preload("res://eye_of_the_forest/su
 
 @export var max_hp : int = 1000
 var hp : int = 10
+var xp_reward : float = 500
 #var audio_hurt : AudioStream = preload()
 #var audio_shoot : AudioStream = preload()
 
@@ -23,6 +24,12 @@ var hp : int = 10
 @onready var persistent_data_handler: PersistentDataHandler = $PersistentDataHandler
 @onready var hurt_box: HurtBox = $BossNode/HurtBox
 @onready var hit_box: HitBox = $BossNode/HitBox
+@onready var hyperdeath: AudioStreamPlayer2D = $Hyperdeath
+@onready var charge_audio: AudioStreamPlayer2D = $ChargeAudio
+@onready var slash_pre: AudioStreamPlayer2D = $SlashPre
+@onready var monologue_audio: AudioStreamPlayer2D = $MonologueAudio
+@onready var boss_music: AudioStreamPlayer2D = $BossMusic
+
 
 #region /// Positions
 @onready var pos1: Sprite2D = $PositionTargets/Sprite2D
@@ -67,9 +74,13 @@ var hp : int = 10
 #endregion
 
 var direction : Vector2
-var attack_cooldown : float = 3.5
-var attack_cooldown_timer : float = 0
+var attack_cooldown : float = 4.0
+var attack_cooldown_timer : float = 1
 var isAttacking : bool = false
+var finalStarted : bool = false
+var finalFinished : bool = false
+var battleStarted : bool = false
+var musicPlaying : bool = false
 
 enum BossState { IDLE, CHOOSING_ATTACK, ATTACKING }
 
@@ -81,12 +92,35 @@ func _ready() -> void:
 	hp = max_hp
 	hit_box.Damaged.connect(damage_taken)
 	attack_cooldown_timer = attack_cooldown
+#	monologue_audio.play()
+#	await monologue_audio.finished
+	battleStarted = true
+#	if battleStarted == false:
+	#audiostreamplayer
+	#await
+	#battleStarted = true
+		
 	
 	
 func _process(delta: float) -> void:
+#maybe I put all of this into an if statement?
+	#if battleStarted = true:
 	attack_cooldown_timer -= delta
-	if state == BossState.IDLE and attack_cooldown_timer <= 0:
+	if state == BossState.IDLE and attack_cooldown_timer <= 0 and finalStarted == false and battleStarted == true:
+		bossMusic()
 		choose_attack()
+	if finalFinished == true:
+		enable_hit_boxes(true)
+	
+		
+func bossMusic() -> void:
+	if battleStarted == true and musicPlaying == false:
+		boss_music.play()
+		musicPlaying = true
+		await boss_music.finished
+		musicPlaying = false
+		bossMusic()
+	
 
 
 func choose_attack() -> void:
@@ -99,8 +133,9 @@ func choose_attack() -> void:
 		attack_pool.append_array([
 			["flamethrower_right", 3], # weighted 3
 			["flame_run", 3],
-			["shoot_slash", 1],
-			["drone_strike", 2],
+			["shoot_slash", 3],
+			["drone_strike", 3],
+			["flame_combo", 3],
 		])
 
 	# Mid-range
@@ -132,7 +167,7 @@ func choose_attack() -> void:
 				["shoot_slash", 3],
 				["fire_wall", 2],
 				["flame_combo", 2],
-				["drone_strike", 1 ],
+				["drone_strike", 2 ],
 			])
 
 	if attack_pool.is_empty():
@@ -165,9 +200,9 @@ func run_attack(attack_name: String) -> void:
 
 	match attack_name:
 		"flame_combo":
-			await do_attack(flame_combo, 0.3)
+			await do_attack(flame_combo, 0.1)
 		"flame_run":
-			await do_attack(flame_run, 0.3)
+			await do_attack(flame_run, 0.1)
 		"call_reinforcements":
 			await do_attack(call_reinforcements, 0.3)
 		"static_firestream":
@@ -181,15 +216,15 @@ func run_attack(attack_name: String) -> void:
 		"drone_strike":
 			await do_attack(drone_strike, 0.3)
 		"flamethrower":
-			await do_attack(flamethrower, 0.3)
+			await do_attack(flamethrower, 0.1)
 		"flamethrower_right":
-			await do_attack(sflamethrower_right, 0.3)
+			await do_attack(sflamethrower_right, 0.1)
 		"fire_stream":
-			await do_attack(fire_stream, 0.3)
+			await do_attack(fire_stream, 0.1)
 		"fire_wall":
 			await do_attack(fire_wall, 0.3)
 		"shoot_slash":
-			await do_attack(shoot_slash, 0.1)
+			await do_attack(shoot_slash, 0.0)
 
 func do_attack(func_ref: Callable, duration: float) -> void:
 	func_ref.call()
@@ -201,8 +236,8 @@ func do_attack(func_ref: Callable, duration: float) -> void:
 		
 		
 func idle() -> void:
-	print("idle")
-	enable_hit_boxes()
+	if finalStarted == false:
+		enable_hit_boxes()
 	
 	#animation_player.play("cast_spell")
 	#await animation_player.animation_finished
@@ -220,9 +255,10 @@ func update_animations() -> void:
 #region Attacks
 func shoot_slash() -> void:
 	var eb : Node2D = SLASH_SCENE.instantiate()
+	slash_pre.play()
+	await slash_pre.finished
 	eb.global_position = boss_node.global_position + Vector2(0, -34)
 	get_parent().add_child.call_deferred(eb)
-	print("Shot")
 	#play_audio(audio_shoot)
 	
 func fire_wall() -> void:
@@ -243,6 +279,9 @@ func fire_stream() -> void:
 	
 func flame_wall() -> void:
 	var flw : Node2D = FLAME_WALL_SCENE.instantiate()
+	charge_audio.play()
+	await charge_audio.finished
+	hyperdeath.play()
 	flw.global_position = pos5.global_position
 	get_parent().add_child.call_deferred(flw)
 	
@@ -453,8 +492,10 @@ func final_attack() -> void:
 	drone_strike()
 	await get_tree().create_timer(7).timeout
 	drone_strike()
-	await get_tree().create_timer(10).timeout
+	await get_tree().create_timer(5).timeout
 	drone_strike()
+	finalFinished = true
+	hp = 1
 #endregion
 
 
@@ -467,6 +508,8 @@ func damage_taken(_hurt_box : HurtBox) -> void:
 		#animation_player_damaged.play("damaged")
 		#animation_player_damaged.seek(0)
 		#animation_player_damaged.queue("default")
+		if hp < 40:
+			final_config()
 		if hp < 1:
 			defeat()
 		
@@ -475,6 +518,11 @@ func damage_taken(_hurt_box : HurtBox) -> void:
 	#audio.stream = _a
 	#audio.play()
 	
+func final_config():
+	finalStarted = true
+	print("final started")
+	enable_hit_boxes(false)
+	final_attack()
 	
 func defeat() -> void:
 	#animation_player.play("destroy)
@@ -488,11 +536,16 @@ func enable_hit_boxes(_v : bool = true) -> void:
 	hit_box.set_deferred("monitorable", _v)
 	hurt_box.set_deferred("monitoring", _v)
 	
+	
+	
 func explosion(_p : Vector2 = Vector2.ZERO) -> void:
 	var e : Node2D = ENERGY_EXPLOSION_SCENE.instantiate()
 	e.global_position = boss_node.global_position + _p
 	get_parent().add_child.call_deferred(e)
+	PlayerManager.reward_xp(xp_reward)
 	queue_free()
+	await get_tree().create_timer(10).timeout
+	get_tree().quit()
 	#call this in defeat animation later
 	pass
 	

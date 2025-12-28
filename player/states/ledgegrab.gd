@@ -1,8 +1,11 @@
 class_name PlayerStateLedgeGrab extends PlayerState
 
+@onready var mantle_audio: AudioStreamPlayer2D = $"../../MantleAudio"
+
+
 @export var regular_jump_velocity: float = 600
-@export var boosted_jump_velocity: float = 530   
-@export var super_jump_speed_multiplier: float = 4  
+@export var boosted_jump_velocity: float = 600   
+@export var super_jump_speed_multiplier: float = 6  
 @export var jump_buffer_time: float = 0.2
 var jump_buffer_timer: float = 0.0
 
@@ -42,6 +45,7 @@ func physics_process(_delta: float) -> PlayerState:
 		if jump_buffer_timer > 0.0:
 			jump_buffer_timer = 0.0
 			if Input.is_action_pressed("up"):
+				mantle_audio.play()
 				jump.jump_velocity_override = boosted_jump_velocity
 				jump.fixed_jump = true
 				jump.super_speed_multiplier = super_jump_speed_multiplier

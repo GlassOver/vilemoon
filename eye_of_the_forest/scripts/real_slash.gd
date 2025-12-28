@@ -7,7 +7,7 @@ class_name RealSlash extends Node2D
 var direction : Vector2 = Vector2.DOWN
 
 @onready var hurt_box: HurtBox = $HurtBox
-@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var audio_stream_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 func _ready() -> void:
 	hurt_box.did_damage.connect(hit_player)
@@ -18,6 +18,7 @@ func _ready() -> void:
 	pass
 	
 func _process(delta: float) -> void:
+	audio_stream_player.play()
 	position += direction * speed * delta
 	pass
 	
